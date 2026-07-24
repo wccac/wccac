@@ -507,12 +507,10 @@
       z-index:-1;
       pointer-events:none;
       background:
-        repeating-radial-gradient(ellipse at 9% 84%,transparent 0 46px,rgba(146,99,31,.11) 48px 50px,transparent 52px 82px),
-        repeating-radial-gradient(ellipse at 92% 19%,transparent 0 58px,rgba(175,125,43,.1) 60px 62px,transparent 64px 101px),
         radial-gradient(circle at 16% 24%,rgba(169,119,40,.23) 0 1px,transparent 2px),
         radial-gradient(circle at 81% 71%,rgba(169,119,40,.18) 0 1px,transparent 2px);
-      background-size:430px 230px,520px 270px,27px 27px,35px 35px;
-      mask-image:linear-gradient(90deg,#000,transparent 37% 63%,#000);
+      background-size:27px 27px,35px 35px;
+      mask-image:linear-gradient(90deg,#000,transparent 31% 69%,#000);
       opacity:.72;
     }
     .scroll-clouds{
@@ -520,12 +518,17 @@
       inset:0;
       z-index:1;
       pointer-events:none;
-      background:
-        radial-gradient(ellipse at 15% 72%,transparent 0 48px,rgba(255,251,232,.74) 50px 69px,transparent 71px),
-        radial-gradient(ellipse at 25% 80%,transparent 0 72px,rgba(204,164,88,.19) 74px 77px,transparent 79px),
-        radial-gradient(ellipse at 82% 27%,transparent 0 55px,rgba(255,251,232,.68) 57px 75px,transparent 77px),
-        radial-gradient(ellipse at 91% 35%,transparent 0 76px,rgba(204,164,88,.17) 78px 81px,transparent 83px);
-      filter:blur(.2px);
+      background-image:
+        url('assets/generated/05-embroidered-ornament-sheet.png'),
+        url('assets/generated/05-embroidered-ornament-sheet.png');
+      background-repeat:no-repeat;
+      background-size:min(720px,58vw) auto,min(660px,53vw) auto;
+      background-position:-180px 9%,calc(100% + 185px) 78%;
+      filter:sepia(.38) saturate(.72);
+      mix-blend-mode:multiply;
+      opacity:.17;
+      -webkit-mask-image:linear-gradient(90deg,#000 0 26%,transparent 43% 57%,#000 74%);
+      mask-image:linear-gradient(90deg,#000 0 26%,transparent 43% 57%,#000 74%);
     }
     .scroll-fog{
       position:absolute;
@@ -974,6 +977,326 @@
       .scroll-page{transform:none}
       .scroll-fog,.gold-dust,.cursor:before{animation:none}
     }
+
+    /* One continuous vertical silk scroll */
+    .continuous-scroll{
+      position:relative;
+      z-index:4;
+      width:min(94vw,1260px);
+      margin:-2vh auto 16vh;
+      filter:drop-shadow(0 42px 62px rgba(0,15,10,.42));
+    }
+    .scroll-crown{
+      position:relative;
+      z-index:4;
+      width:100%;
+      height:clamp(390px,48vw,610px);
+      overflow:hidden;
+      pointer-events:none;
+    }
+    .scroll-crown img{
+      display:block;
+      width:100%;
+      height:auto;
+      min-height:100%;
+      object-fit:cover;
+      object-position:center top;
+      filter:saturate(.92) contrast(1.02);
+    }
+    .scroll-paper{
+      position:relative;
+      z-index:2;
+      width:calc(100% - 15%);
+      margin:-11.5% auto 0;
+      overflow:hidden;
+      color:#283a30;
+      background:
+        linear-gradient(90deg,rgba(107,75,26,.16),transparent 3.4% 10%,rgba(255,255,255,.48) 18%,transparent 34% 70%,rgba(255,255,255,.29) 81%,rgba(105,73,28,.15) 97%),
+        repeating-linear-gradient(0deg,rgba(82,58,25,.025) 0 1px,transparent 1px 4px),
+        #eee4cb;
+      border-left:1px solid rgba(143,105,45,.42);
+      border-right:1px solid rgba(143,105,45,.42);
+      box-shadow:
+        inset 20px 0 36px rgba(106,72,23,.09),
+        inset -20px 0 36px rgba(106,72,23,.09),
+        0 24px 55px rgba(8,26,19,.23);
+    }
+    .scroll-paper:before,
+    .scroll-paper:after{
+      content:"";
+      position:absolute;
+      z-index:0;
+      width:470px;
+      height:285px;
+      pointer-events:none;
+      background:url('assets/generated/05-embroidered-ornament-sheet.png') left top/760px auto no-repeat;
+      mix-blend-mode:multiply;
+      opacity:.1;
+      filter:saturate(.65) sepia(.22);
+      -webkit-mask-image:linear-gradient(115deg,#000 0 60%,transparent 88%);
+      mask-image:linear-gradient(115deg,#000 0 60%,transparent 88%);
+    }
+    .scroll-paper:before{left:-70px;top:215px}
+    .scroll-paper:after{
+      right:-70px;
+      top:42%;
+      transform:scaleX(-1);
+    }
+    .continuous-scroll .scroll-page,
+    .continuous-scroll .scroll-paper>section{
+      position:relative;
+      z-index:1;
+      width:100%;
+      margin:0;
+      border:0;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      transform:none!important;
+      opacity:1!important;
+    }
+    .continuous-scroll .scroll-page:before,
+    .continuous-scroll .scroll-page:after{display:none}
+    .continuous-scroll .scroll-paper>section:not(:first-child){
+      border-top:1px solid rgba(148,105,39,.2);
+    }
+    .continuous-scroll .scroll-paper>section:not(:first-child):before{
+      content:"";
+      display:block;
+      position:absolute;
+      z-index:2;
+      width:94px;
+      height:28px;
+      left:50%;
+      top:0;
+      transform:translate(-50%,-50%);
+      background:
+        radial-gradient(circle at 50% 50%,#a4742e 0 2px,transparent 3px),
+        radial-gradient(ellipse at 34% 54%,transparent 0 9px,rgba(155,111,43,.75) 10px 11px,transparent 12px),
+        radial-gradient(ellipse at 66% 46%,transparent 0 9px,rgba(155,111,43,.75) 10px 11px,transparent 12px);
+      opacity:.8;
+    }
+    .continuous-scroll .chapter{
+      grid-template-columns:minmax(0,.86fr) minmax(280px,1fr);
+      gap:7vw;
+      padding:120px 9% 65px;
+    }
+    .continuous-scroll .chapter h2,
+    .continuous-scroll .closing-copy h2,
+    .continuous-scroll .journey h2,
+    .continuous-scroll .summary h2{color:#20372c}
+    .continuous-scroll .chapter p,
+    .continuous-scroll .summary p,
+    .continuous-scroll .work-info p,
+    .continuous-scroll .myth-card p{color:#536359}
+    .continuous-scroll .kicker,
+    .continuous-scroll .type{color:#8c6428}
+    .continuous-scroll .gallery{
+      padding:0 8% 125px;
+      overflow:visible;
+    }
+    .continuous-scroll .rail{
+      display:flex;
+      flex-direction:column;
+      gap:110px;
+      overflow:visible;
+      scroll-snap-type:none;
+      padding:0;
+      cursor:default;
+    }
+    .continuous-scroll .work,
+    .continuous-scroll .myth-card{
+      display:grid;
+      grid-template-columns:minmax(0,1.16fr) minmax(250px,.84fr);
+      align-items:center;
+      gap:clamp(34px,6vw,78px);
+      height:auto;
+      min-height:0;
+      overflow:visible;
+      background:transparent;
+      color:#26392f;
+      box-shadow:none;
+      cursor:pointer;
+    }
+    .continuous-scroll .work:after,
+    .continuous-scroll .myth-card:after{display:none}
+    .continuous-scroll .work>img,
+    .continuous-scroll .myth-card>img{
+      position:relative;
+      z-index:1;
+      width:100%;
+      height:auto;
+      aspect-ratio:16/10;
+      object-fit:cover;
+      border:1px solid rgba(151,109,43,.42);
+      box-shadow:0 18px 36px rgba(73,49,17,.16);
+      transition:transform .65s cubic-bezier(.2,.8,.2,1),box-shadow .65s;
+    }
+    .continuous-scroll .work:hover>img,
+    .continuous-scroll .myth-card:hover>img{
+      transform:translateY(-8px) scale(1.012);
+      box-shadow:0 28px 48px rgba(73,49,17,.22);
+    }
+    .continuous-scroll .work-info{
+      position:relative;
+      z-index:2;
+      inset:auto;
+      padding:0;
+      transform:none;
+      background:none;
+      color:#26392f;
+    }
+    .continuous-scroll .work-info:before{
+      content:"";
+      display:block;
+      width:52px;
+      height:1px;
+      margin-bottom:24px;
+      background:linear-gradient(90deg,#9c6d25,transparent);
+    }
+    .continuous-scroll .work-info h3{
+      margin:10px 0 18px;
+      color:#233a2f;
+      font-size:clamp(28px,3.5vw,52px);
+      font-weight:500;
+      letter-spacing:.08em;
+      line-height:1.15;
+    }
+    .continuous-scroll .work-info p{
+      margin:0;
+      font-size:14px;
+      line-height:2;
+      letter-spacing:.06em;
+    }
+    .continuous-scroll .work:nth-child(even)>img,
+    .continuous-scroll .myth-card:nth-child(even)>img{grid-column:2;grid-row:1}
+    .continuous-scroll .work:nth-child(even)>.work-info,
+    .continuous-scroll .myth-card:nth-child(even)>.work-info{grid-column:1;grid-row:1}
+    .continuous-scroll .lens-toolbar{
+      margin-top:80px;
+      padding:22px 0 0;
+      background:transparent;
+      border-top:1px solid rgba(142,101,39,.28);
+      color:#43554b;
+    }
+    .continuous-scroll .rail-nav{display:none}
+    .continuous-scroll .motion{display:block;padding:0 8% 120px}
+    .continuous-scroll .film{
+      display:grid;
+      grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);
+      height:min(66vh,650px);
+      min-height:480px;
+      background:#17362d;
+      border:1px solid rgba(145,103,38,.45);
+      box-shadow:0 20px 42px rgba(73,49,17,.18);
+    }
+    .continuous-scroll .film video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .continuous-scroll .film-copy{
+      position:relative;
+      inset:auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:52px 38px;
+      background:
+        linear-gradient(140deg,rgba(16,51,41,.92),rgba(6,29,23,.98)),
+        #17362d;
+    }
+    .continuous-scroll .film-copy h2{font-size:clamp(30px,3.4vw,52px)}
+    .continuous-scroll .timeline{left:24px;right:calc(40% + 20px)}
+    .continuous-scroll .sound{right:calc(40% + 18px)}
+    .continuous-scroll .gate{padding:90px 8% 120px}
+    .continuous-scroll .gate-art{
+      height:min(58vh,570px);
+      min-height:390px;
+      border:1px solid rgba(145,103,38,.42);
+      box-shadow:0 20px 42px rgba(73,49,17,.18);
+    }
+    .continuous-scroll .myth{padding-bottom:130px}
+    .continuous-scroll .myth-grid{
+      display:flex;
+      flex-direction:column;
+      gap:110px;
+      padding:0 8%;
+    }
+    .continuous-scroll .closing{padding:120px 8%}
+    .continuous-scroll .closing-art{
+      display:grid;
+      grid-template-columns:minmax(0,1.12fr) minmax(260px,.88fr);
+      align-items:stretch;
+      min-height:520px;
+      background:#17362d;
+      border:1px solid rgba(145,103,38,.45);
+      box-shadow:0 20px 42px rgba(73,49,17,.18);
+    }
+    .continuous-scroll .closing-art img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .continuous-scroll .closing-copy{
+      position:relative;
+      inset:auto;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:50px 40px;
+      background:linear-gradient(140deg,rgba(16,51,41,.93),rgba(6,29,23,.98));
+    }
+    .continuous-scroll .closing-copy h2{color:#f1e4c5}
+    .continuous-scroll .closing-copy p{color:#c9d0c8}
+    .continuous-scroll .journey{padding:120px 9%}
+    .continuous-scroll .summary{padding:125px 9% 160px}
+
+    @media(max-width:900px){
+      .continuous-scroll{width:96vw}
+      .scroll-crown{height:clamp(350px,57vw,520px)}
+      .scroll-crown img{width:112%;margin-left:-6%}
+      .scroll-paper{width:84%;margin-top:-13.5%}
+      .continuous-scroll .chapter{padding-left:8%;padding-right:8%;gap:5vw}
+      .continuous-scroll .work,
+      .continuous-scroll .myth-card{grid-template-columns:1fr;gap:28px}
+      .continuous-scroll .work:nth-child(even)>img,
+      .continuous-scroll .myth-card:nth-child(even)>img,
+      .continuous-scroll .work:nth-child(even)>.work-info,
+      .continuous-scroll .myth-card:nth-child(even)>.work-info{grid-column:auto;grid-row:auto}
+      .continuous-scroll .work:nth-child(even)>.work-info,
+      .continuous-scroll .myth-card:nth-child(even)>.work-info{order:2}
+      .continuous-scroll .film,
+      .continuous-scroll .closing-art{grid-template-columns:1fr;height:auto}
+      .continuous-scroll .film video{height:50vh;min-height:380px}
+      .continuous-scroll .film-copy{min-height:260px}
+      .continuous-scroll .timeline{right:24px;bottom:calc(260px + 16px)}
+      .continuous-scroll .sound{right:18px}
+      .continuous-scroll .closing-art img{height:50vh;min-height:390px}
+    }
+    @media(max-width:720px){
+      .continuous-scroll{width:100vw;margin-top:-1vh}
+      .scroll-crown{height:330px}
+      .scroll-crown img{width:145%;max-width:none;margin-left:-22.5%}
+      .scroll-paper{width:88%;margin-top:-17%;border-width:1px}
+      .scroll-paper:before,.scroll-paper:after{width:320px;height:210px;background-size:540px auto}
+      .continuous-scroll .chapter{grid-template-columns:1fr;padding:90px 8% 45px}
+      .continuous-scroll .gallery,
+      .continuous-scroll .motion,
+      .continuous-scroll .gate{padding-left:7%;padding-right:7%}
+      .continuous-scroll .rail,
+      .continuous-scroll .myth-grid{gap:78px}
+      .continuous-scroll .work-info h3{font-size:32px}
+      .continuous-scroll .film video{height:42vh;min-height:300px}
+      .continuous-scroll .film-copy{padding:38px 24px;min-height:240px}
+      .continuous-scroll .timeline{bottom:calc(240px + 12px)}
+      .continuous-scroll .timeline button{font-size:7px}
+      .continuous-scroll .closing,
+      .continuous-scroll .journey,
+      .continuous-scroll .summary{padding-left:7%;padding-right:7%}
+      .continuous-scroll .closing-copy{padding:38px 25px}
+      .continuous-scroll .closing-art img{height:42vh;min-height:320px}
+    }
   </style>
 </head>
 <body>
@@ -982,26 +1305,31 @@
   <nav class="side-nav" aria-label="章节导航"><a href="#opening" data-nav="opening" class="active"><span>序卷</span><em>00</em></a><a href="#silk" data-nav="silk"><span>瑞兽花园</span><em>01</em></a><a href="#motion" data-nav="motion"><span>动态花园</span><em>02</em></a><a href="#myth" data-nav="myth"><span>山海异兽</span><em>03</em></a><a href="#closing" data-nav="closing"><span>万象归绣</span><em>04</em></a><a href="#summary" data-nav="summary"><span>创作余韵</span><em>05</em></a></nav>
   <main id="top">
     <section class="scroll-opening" id="opening" aria-label="卷轴序章"><div class="scroll-stage" id="scroll-stage"><div class="scroll-clouds"></div><div class="scroll-fog fog-back"></div><div class="scroll-object"><div class="opening-sheet"><div class="opening-painting"></div><div class="opening-copy"><span class="eyebrow">WANG CHUN · SHU EMBROIDERY VISUAL STORY</span><h1>蜀绣<em>·</em>灵境</h1><p>在针脚与想象之间，遇见东方生灵。由一卷尚未展开的绢帛开始，沿着金线进入瑞兽花园与山海幽林。</p><span class="opening-seal">王淳</span></div></div><div class="scroll-rod top"></div><div class="scroll-rod bottom"></div><button class="closed-mark" id="open-scroll" type="button" aria-label="点击打开卷轴"><i><span>绣</span></i><small>点击启卷</small></button></div><div class="scroll-fog fog-mid"></div><div class="gold-dust"></div><div class="scroll-fog fog-front"></div><div class="opening-hint">轻触卷轴 · 入境</div></div></section>
+    <section class="continuous-scroll" id="long-scroll" aria-label="蜀绣灵境作品长卷">
+      <div class="scroll-crown" aria-hidden="true"><img src="assets/generated/scroll-crown-3d.png" alt=""></div>
+      <div class="scroll-paper">
     <section id="silk" class="reveal"><div class="chapter"><div><span class="kicker">01 / SHU EMBROIDERY</span><h2>蜀绣灵境<br>瑞兽花园</h2></div><div><p>金丝猴与熊猫共同构成这一章节的主角。以丝线光泽、花木园林和温柔的自然色调为语言，让传统刺绣不止被观看，也像一个可漫步进入的世界。</p><div class="line"><span>金丝猴</span><span>熊猫</span><span>丝线肌理</span></div></div></div><div class="gallery"><div class="rail" id="silk-rail">
-      <article class="work magnify" data-title="灵境同游 · 金丝猴与熊猫" data-type="蜀绣灵境 / 角色叙事" data-desc="金丝猴与熊猫第一次被置于同一座花园；松枝、牡丹、瑞鸟与山水共同构成世界观的开端。"><img src="assets/generated/01-lingjing-companions.png" alt="灵境同游金丝猴与熊猫"><i class="lens"></i><div class="work-info"><span class="type">GOLDEN MONKEY · PANDA · EMBROIDERY</span><h3>灵境同游</h3></div></article>
-      <article class="work magnify" data-pos="panda" data-title="牡丹熊猫花园" data-type="蜀绣灵境 / 花鸟园林" data-desc="熊猫、牡丹、紫藤和鸟群被组织成一座轻盈的绣线花园；它也是后续动态短片的静态起点。"><img src="assets/embroidery/peony-panda.png" alt="牡丹熊猫花园"><i class="lens"></i><div class="work-info"><span class="type">PANDA · EMBROIDERY GARDEN</span><h3>牡丹熊猫花园</h3></div></article>
-      <article class="work magnify" data-title="慈佑金灵" data-type="蜀绣灵境 / 瑞兽插画" data-desc="以瑞兽与自然植被的关系，补充灵境世界的守护主题。"><img src="assets/embroidery/慈佑金灵.png" alt="慈佑金灵"><i class="lens"></i><div class="work-info"><span class="type">SPIRIT · SILK THREAD ART</span><h3>慈佑金灵</h3></div></article>
+      <article class="work magnify" data-title="灵境同游 · 金丝猴与熊猫" data-type="蜀绣灵境 / 角色叙事" data-desc="金丝猴与熊猫第一次被置于同一座花园；松枝、牡丹、瑞鸟与山水共同构成世界观的开端。"><img src="assets/generated/01-lingjing-companions.png" alt="灵境同游金丝猴与熊猫"><i class="lens"></i><div class="work-info"><span class="type">GOLDEN MONKEY · PANDA · EMBROIDERY</span><h3>灵境同游</h3><p>金丝猴与熊猫第一次被置于同一座花园。松枝、牡丹、瑞鸟与远山沿着丝线展开，共同构成灵境世界观的开端。</p></div></article>
+      <article class="work magnify" data-pos="panda" data-title="牡丹熊猫花园" data-type="蜀绣灵境 / 花鸟园林" data-desc="熊猫、牡丹、紫藤和鸟群被组织成一座轻盈的绣线花园；它也是后续动态短片的静态起点。"><img src="assets/embroidery/peony-panda.png" alt="牡丹熊猫花园"><i class="lens"></i><div class="work-info"><span class="type">PANDA · EMBROIDERY GARDEN</span><h3>牡丹熊猫花园</h3><p>熊猫、牡丹、紫藤与鸟群被组织成一座轻盈的绣线花园。画面也是后续动态短片的静态起点，让针脚开始拥有时间。</p></div></article>
+      <article class="work magnify" data-title="慈佑金灵" data-type="蜀绣灵境 / 瑞兽插画" data-desc="以瑞兽与自然植被的关系，补充灵境世界的守护主题。"><img src="assets/embroidery/慈佑金灵.png" alt="慈佑金灵"><i class="lens"></i><div class="work-info"><span class="type">SPIRIT · SILK THREAD ART</span><h3>慈佑金灵</h3><p>瑞兽隐入花木与金线之间，以温和而坚定的姿态守护灵境。自然植被与刺绣肌理补充了这一章节的精神主题。</p></div></article>
     </div><div class="lens-toolbar"><div><span class="type">DETAIL VIEW / 针脚观察</span><p>放大镜默认关闭。开启后，将鼠标移到作品上查看丝线与针脚细节。</p></div><button class="lens-toggle" id="lens-toggle" type="button" aria-pressed="false"><i>＋</i><span>点击开启刺绣放大镜</span></button></div><div class="rail-nav"><button data-rail="silk-rail" data-dir="-1" aria-label="向左浏览">←</button><button data-rail="silk-rail" data-dir="1" aria-label="向右浏览">→</button></div></div></section>
     <section class="motion reveal" id="motion"><div class="chapter"><div><span class="kicker">02 / MOTION GARDEN</span><h2>牡丹熊猫<br>丝线苏醒</h2></div><div><p>动态影像被安置在瑞兽花园之后，像卷轴中的一扇活动画心。花叶、飞鸟与熊猫从静态针脚中苏醒，让传统刺绣拥有时间的呼吸。</p><div class="line"><span>动态影像</span><span>牡丹熊猫</span><span>丝线流动</span></div></div></div><div class="film"><button class="sound" id="sound">开启声音</button><video id="garden-video" muted loop playsinline poster="assets/generated/02-peony-garden-video-poster.png"><source src="assets/video/embroidered-garden.mp4" type="video/mp4"></video><div class="film-copy"><span class="kicker">MOVING EMBROIDERY</span><h2>丝线在风中苏醒</h2><span class="type">从静态刺绣画面延展为动态花园</span></div><div class="timeline"><button class="active" data-time="0">01 / 花园初现</button><button data-time=".33">02 / 小鸟起飞</button><button data-time=".66">03 / 走向熊猫</button></div></div></section>
     <section class="gate reveal" aria-label="山海启卷"><div class="gate-art"><img src="assets/generated/03-shanhai-scroll-transition.png" alt="山海启卷刺绣转场"><span>03 / ENTER THE CLASSIC OF MOUNTAINS AND SEAS</span></div></section>
     <section class="myth reveal" id="myth"><div class="chapter"><div><span class="kicker">03 / CLASSIC OF MOUNTAINS AND SEAS</span><h2>山海经<br>异兽小志</h2></div><div><p>只保留两位最能代表系列气质的神兽：白泽与九尾狐。它们以更简洁、具有亲和力的角色形象，连接古老神话与当代视觉语言。</p><div class="line"><span>白泽</span><span>九尾狐</span><span>神话新绘</span></div></div></div><div class="myth-grid">
-      <article class="myth-card" data-title="白泽神兽志" data-type="山海经 / 神兽角色设计" data-desc="横构图以幽林和萤光为场景，把白泽的智慧、守护与自然感收拢到一个有呼吸的神话瞬间。"><img src="assets/myth/baize-landscape.png" alt="白泽神兽横构图"><div class="work-info"><span class="type">MYTHICAL CHARACTER 01</span><h3>白泽神兽志</h3></div></article>
-      <article class="myth-card" data-title="九尾狐" data-type="山海经 / 神兽角色设计" data-desc="以幽林、石刻与水面倒影塑造九尾狐的灵性；横构图让九尾的流动和空间层次更完整。"><img src="assets/myth/nine-tailed-fox.png" alt="九尾狐横构图"><div class="work-info"><span class="type">MYTHICAL CHARACTER 02</span><h3>九尾狐</h3></div></article>
+      <article class="myth-card" data-title="白泽神兽志" data-type="山海经 / 神兽角色设计" data-desc="横构图以幽林和萤光为场景，把白泽的智慧、守护与自然感收拢到一个有呼吸的神话瞬间。"><img src="assets/myth/baize-landscape.png" alt="白泽神兽横构图"><div class="work-info"><span class="type">MYTHICAL CHARACTER 01</span><h3>白泽神兽志</h3><p>幽林与萤光围绕白泽展开，白色毛发在暗色森林里形成安静的视觉中心，表达智慧、守护与自然共生。</p></div></article>
+      <article class="myth-card" data-title="九尾狐" data-type="山海经 / 神兽角色设计" data-desc="以幽林、石刻与水面倒影塑造九尾狐的灵性；横构图让九尾的流动和空间层次更完整。"><img src="assets/myth/nine-tailed-fox.png" alt="九尾狐横构图"><div class="work-info"><span class="type">MYTHICAL CHARACTER 02</span><h3>九尾狐</h3><p>幽林、石刻与水面倒影共同塑造九尾狐的灵性。九条尾巴像流动的绣线，将古老神话引入更柔和的当代叙事。</p></div></article>
     </div></section>
     <section class="closing reveal" id="closing"><div class="closing-art"><img src="assets/generated/04-wanxiang-closing.png" alt="万象归绣东方生灵"><div class="closing-copy"><span class="kicker">04 / WANXIANG GUIXIU</span><h2>万象归绣<br>东方生灵</h2><p>从灵境花园到幽林异兽，每一位生灵都由同一根金线牵引，回到东方叙事的温度之中。</p></div></div></section>
     <section class="journey reveal" aria-label="作品地图"><span class="kicker">JOURNEY MAP</span><h2>沿着一条视觉路径，进入三个世界。</h2><div class="map"><button data-go="silk"><i></i><b>绣境花园</b><span>金丝猴与熊猫，在刺绣针脚之间相遇。</span></button><button data-go="motion"><i></i><b>动态花园</b><span>静态的花鸟园林，在镜头推进中苏醒。</span></button><button data-go="myth"><i></i><b>幽林异兽</b><span>白泽与九尾狐，走进另一种神话想象。</span></button></div></section>
     <section class="summary reveal" id="summary"><div><span class="kicker">04 / CREATIVE NOTE</span><h2>让传统<br>在当下呼吸。</h2></div><div><p>这组作品从蜀绣的针脚出发，经过熊猫与金丝猴的自然叙事，再延伸到《山海经》的异兽想象。它们共同关注一件事：如何让传统文化不只是被陈列，而是以更有温度、更具互动感的方式进入今天的观看经验。</p><div class="tags"><span>文化视觉</span><span>插画叙事</span><span>角色设计</span><span>动态表达</span><span>东方美学</span></div></div></section>
+      </div>
+    </section>
   </main><footer><span>© 2026 WANG CHUN. ALL RIGHTS RESERVED.</span><span>EMBROIDERED WORLDS · MYTHICAL CREATURES</span></footer>
   <div class="modal" id="modal" aria-hidden="true"><div class="modal-inner"><button class="close" aria-label="关闭">×</button><img id="modal-img" alt=""><div class="modal-copy" id="modal-copy"><span class="type" id="modal-type"></span><h3 id="modal-title"></h3><p id="modal-desc"></p><div class="page-control"><span id="page-label">01 / 概念</span><div><button id="page-prev" aria-label="上一页">←</button><button id="page-next" aria-label="下一页">→</button></div></div></div></div></div>
   <script>
     (()=>{const canvas=document.querySelector('#silk-bg'),gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});if(!gl){canvas.style.background='linear-gradient(120deg,#0b2a23,#16493d 45%,#071f19)';return}const vertex=`attribute vec2 aPosition;varying vec2 vUv;void main(){vUv=aPosition*.5+.5;gl_Position=vec4(aPosition,0.,1.);}`,fragment=`precision highp float;varying vec2 vUv;uniform float uTime;uniform vec3 uColor;uniform float uSpeed;uniform float uScale;uniform float uRotation;uniform float uNoiseIntensity;const float e=2.71828182845904523536;float noise(vec2 texCoord){float G=e;vec2 r=(G*sin(G*texCoord));return fract(r.x*r.y*(1.0+texCoord.x));}vec2 rotateUvs(vec2 uv,float angle){float c=cos(angle);float s=sin(angle);mat2 rot=mat2(c,-s,s,c);return rot*uv;}void main(){float rnd=noise(gl_FragCoord.xy);vec2 uv=rotateUvs(vUv*uScale,uRotation);vec2 tex=uv*uScale;float tOffset=uSpeed*uTime;tex.y+=.03*sin(8.0*tex.x-tOffset);float pattern=.6+.4*sin(5.0*(tex.x+tex.y+cos(3.0*tex.x+5.0*tex.y)+.02*tOffset)+sin(20.0*(tex.x+tex.y-.1*tOffset)));vec4 col=vec4(uColor,1.0)*vec4(pattern)-rnd/15.0*uNoiseIntensity;col.a=1.0;gl_FragColor=col;}`;const shader=(type,source)=>{const item=gl.createShader(type);gl.shaderSource(item,source);gl.compileShader(item);if(!gl.getShaderParameter(item,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(item));return item};const program=gl.createProgram();try{gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(program))}catch(error){console.warn('Silk shader unavailable',error);canvas.style.background='linear-gradient(120deg,#0b2a23,#16493d 45%,#071f19)';return}gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const position=gl.getAttribLocation(program,'aPosition');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);const uniforms={time:gl.getUniformLocation(program,'uTime'),color:gl.getUniformLocation(program,'uColor'),speed:gl.getUniformLocation(program,'uSpeed'),scale:gl.getUniformLocation(program,'uScale'),rotation:gl.getUniformLocation(program,'uRotation'),noise:gl.getUniformLocation(program,'uNoiseIntensity')};gl.uniform3f(uniforms.color,22/255,73/255,61/255);gl.uniform1f(uniforms.speed,3.1);gl.uniform1f(uniforms.scale,.7);gl.uniform1f(uniforms.rotation,6.28);gl.uniform1f(uniforms.noise,1.5);const resize=()=>{const dpr=Math.min(devicePixelRatio||1,2),width=Math.round(innerWidth*dpr),height=Math.round(innerHeight*dpr);if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;gl.viewport(0,0,width,height)}};let time=0,last=performance.now(),frame=0;const draw=now=>{resize();time+=.1*Math.min((now-last)/1000,.05);last=now;gl.uniform1f(uniforms.time,time);gl.drawArrays(gl.TRIANGLES,0,6);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)frame=requestAnimationFrame(draw)};document.addEventListener('visibilitychange',()=>{if(document.hidden&&frame){cancelAnimationFrame(frame);frame=0}else if(!document.hidden&&!frame){last=performance.now();frame=requestAnimationFrame(draw)}});frame=requestAnimationFrame(draw)})();
     const openTrigger=document.querySelector('#open-scroll'),cursor=document.querySelector('.cursor');let lastPointer={x:innerWidth/2,y:innerHeight/2};document.addEventListener('pointermove',e=>{const angle=Math.atan2(e.clientY-lastPointer.y,e.clientX-lastPointer.x)*180/Math.PI;cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';cursor.style.setProperty('--cursor-angle',`${angle+180}deg`);lastPointer={x:e.clientX,y:e.clientY}});document.querySelectorAll('a,button,.work,.myth-card').forEach(el=>{el.addEventListener('pointerenter',()=>cursor.classList.add('on'));el.addEventListener('pointerleave',()=>cursor.classList.remove('on'))});openTrigger.addEventListener('pointerenter',()=>cursor.classList.add('seal'));openTrigger.addEventListener('pointerleave',()=>cursor.classList.remove('seal'));document.querySelectorAll('.side-nav a').forEach(link=>{link.addEventListener('pointerenter',()=>cursor.classList.add('nav-point'));link.addEventListener('pointerleave',()=>cursor.classList.remove('nav-point'))});document.addEventListener('click',e=>{if(e.target.closest('.close'))return;const burst=document.createElement('span');burst.className='gold-burst';burst.style.left=e.clientX+'px';burst.style.top=e.clientY+'px';const stroke=document.createElement('i');burst.appendChild(stroke);for(let index=0;index<7;index++){const leaf=document.createElement('b');leaf.style.setProperty('--angle',`${index*51.4-18}deg`);leaf.style.setProperty('--distance',`${26+Math.random()*28}px`);leaf.style.setProperty('--spin',`${90+Math.random()*160}deg`);leaf.style.animationDelay=`${index*.018}s`;burst.appendChild(leaf)}document.body.appendChild(burst);setTimeout(()=>burst.remove(),850)});
-    const opening=document.querySelector('#opening'),scrollStage=document.querySelector('#scroll-stage'),scrollObject=document.querySelector('.scroll-object'),pageSections=[...document.querySelectorAll('#silk,#motion,.gate,#myth,.closing,.journey,#summary')];pageSections.forEach(section=>section.classList.add('scroll-page'));const experienceClamp=n=>Math.max(0,Math.min(1,n)),smoothStep=t=>t*t*(3-2*t);let experienceFrame=0,introFrame=0;const updateExperience=()=>{experienceFrame=0;const vh=innerHeight,openingRect=opening.getBoundingClientRect(),travel=Math.max(opening.offsetHeight-vh,1),progress=experienceClamp(-openingRect.top/travel),camera=experienceClamp(progress/.46),open=experienceClamp((progress-.37)/.27),reveal=experienceClamp((open-.38)/.5),firstLeg=smoothStep(experienceClamp(camera/.56)),secondLeg=smoothStep(experienceClamp((camera-.56)/.44)),cameraX=camera<.56?-12*firstLeg:-12*(1-secondLeg),cameraY=camera<.56?-9+18*firstLeg:9*(1-secondLeg),cameraScale=camera<.56?.62+.27*firstLeg:.89+.11*secondLeg,cameraTilt=camera<.56?54-28*firstLeg:26*(1-secondLeg),cameraTurn=camera<.56?-5-7*firstLeg:-12*(1-secondLeg),objectHeight=scrollObject.getBoundingClientRect().height,sheetHeight=18+open*Math.max(objectHeight-52,0),rodOffset=open*Math.max(objectHeight/2-18,0),closedOpacity=experienceClamp(1-progress/.18),paintOpacity=experienceClamp((open-.18)/.62);scrollStage.style.setProperty('--camera-x',`${cameraX}vw`);scrollStage.style.setProperty('--camera-y',`${cameraY}vh`);scrollStage.style.setProperty('--camera-scale',cameraScale.toFixed(4));scrollStage.style.setProperty('--camera-tilt',`${cameraTilt}deg`);scrollStage.style.setProperty('--camera-turn',`${cameraTurn}deg`);scrollStage.style.setProperty('--open',open.toFixed(4));scrollStage.style.setProperty('--sheet-height',`${sheetHeight}px`);scrollStage.style.setProperty('--rod-offset',`${rodOffset}px`);scrollStage.style.setProperty('--copy-opacity',reveal.toFixed(4));scrollStage.style.setProperty('--copy-y',`${(1-reveal)*42}px`);scrollStage.style.setProperty('--paint-opacity',paintOpacity.toFixed(4));scrollStage.style.setProperty('--ornament-opacity',(paintOpacity*.14).toFixed(4));scrollStage.style.setProperty('--closed-opacity',closedOpacity.toFixed(4));openTrigger.style.pointerEvents=closedOpacity>.12?'auto':'none';pageSections.forEach(section=>{const rect=section.getBoundingClientRect(),turn=experienceClamp((-rect.top)/(vh*.72));section.style.setProperty('--turn-opacity',turn.toFixed(4));section.style.setProperty('--turn-angle',`${turn*-4}deg`);section.style.setProperty('--turn-y',`${turn*-16}px`)});const navLinks=[...document.querySelectorAll('[data-nav]')],targets=navLinks.map(link=>document.querySelector('#'+link.dataset.nav));let active=0,best=Infinity;targets.forEach((target,index)=>{if(!target)return;const rect=target.getBoundingClientRect(),distance=Math.abs(rect.top+Math.min(rect.height,vh)*.36-vh*.42);if(distance<best){best=distance;active=index}});navLinks.forEach((link,index)=>link.classList.toggle('active',index===active))};const requestExperience=()=>{if(!experienceFrame)experienceFrame=requestAnimationFrame(updateExperience)};const stopIntro=()=>{if(introFrame){cancelAnimationFrame(introFrame);introFrame=0}};openTrigger.addEventListener('click',()=>{stopIntro();const startY=scrollY,targetY=opening.offsetTop+(opening.offsetHeight-innerHeight)*.64,startTime=performance.now(),duration=5200;const fly=now=>{const t=experienceClamp((now-startTime)/duration),ease=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;scrollTo(0,startY+(targetY-startY)*ease);if(t<1)introFrame=requestAnimationFrame(fly);else introFrame=0};introFrame=requestAnimationFrame(fly)});addEventListener('wheel',stopIntro,{passive:true});addEventListener('touchstart',stopIntro,{passive:true});addEventListener('scroll',requestExperience,{passive:true});addEventListener('resize',requestExperience);updateExperience();
+    const opening=document.querySelector('#opening'),longScroll=document.querySelector('#long-scroll'),scrollStage=document.querySelector('#scroll-stage'),scrollObject=document.querySelector('.scroll-object'),pageSections=[...document.querySelectorAll('#silk,#motion,.gate,#myth,.closing,.journey,#summary')];pageSections.forEach(section=>section.classList.add('scroll-page'));const experienceClamp=n=>Math.max(0,Math.min(1,n)),smoothStep=t=>t*t*(3-2*t);let experienceFrame=0,introFrame=0;const updateExperience=()=>{experienceFrame=0;const vh=innerHeight,openingRect=opening.getBoundingClientRect(),travel=Math.max(opening.offsetHeight-vh,1),progress=experienceClamp(-openingRect.top/travel),camera=experienceClamp(progress/.46),open=experienceClamp((progress-.37)/.27),reveal=experienceClamp((open-.38)/.5),firstLeg=smoothStep(experienceClamp(camera/.56)),secondLeg=smoothStep(experienceClamp((camera-.56)/.44)),cameraX=camera<.56?-12*firstLeg:-12*(1-secondLeg),cameraY=camera<.56?-9+18*firstLeg:9*(1-secondLeg),cameraScale=camera<.56?.62+.27*firstLeg:.89+.11*secondLeg,cameraTilt=camera<.56?54-28*firstLeg:26*(1-secondLeg),cameraTurn=camera<.56?-5-7*firstLeg:-12*(1-secondLeg),objectHeight=scrollObject.getBoundingClientRect().height,sheetHeight=18+open*Math.max(objectHeight-52,0),rodOffset=open*Math.max(objectHeight/2-18,0),closedOpacity=experienceClamp(1-progress/.18),paintOpacity=experienceClamp((open-.18)/.62);scrollStage.style.setProperty('--camera-x',`${cameraX}vw`);scrollStage.style.setProperty('--camera-y',`${cameraY}vh`);scrollStage.style.setProperty('--camera-scale',cameraScale.toFixed(4));scrollStage.style.setProperty('--camera-tilt',`${cameraTilt}deg`);scrollStage.style.setProperty('--camera-turn',`${cameraTurn}deg`);scrollStage.style.setProperty('--open',open.toFixed(4));scrollStage.style.setProperty('--sheet-height',`${sheetHeight}px`);scrollStage.style.setProperty('--rod-offset',`${rodOffset}px`);scrollStage.style.setProperty('--copy-opacity',reveal.toFixed(4));scrollStage.style.setProperty('--copy-y',`${(1-reveal)*42}px`);scrollStage.style.setProperty('--paint-opacity',paintOpacity.toFixed(4));scrollStage.style.setProperty('--ornament-opacity',(paintOpacity*.14).toFixed(4));scrollStage.style.setProperty('--closed-opacity',closedOpacity.toFixed(4));openTrigger.style.pointerEvents=closedOpacity>.12?'auto':'none';pageSections.forEach(section=>{const rect=section.getBoundingClientRect(),turn=experienceClamp((-rect.top)/(vh*.72));section.style.setProperty('--turn-opacity',turn.toFixed(4));section.style.setProperty('--turn-angle',`${turn*-4}deg`);section.style.setProperty('--turn-y',`${turn*-16}px`)});const navLinks=[...document.querySelectorAll('[data-nav]')],targets=navLinks.map(link=>document.querySelector('#'+link.dataset.nav));let active=0,best=Infinity;targets.forEach((target,index)=>{if(!target)return;const rect=target.getBoundingClientRect(),distance=Math.abs(rect.top+Math.min(rect.height,vh)*.36-vh*.42);if(distance<best){best=distance;active=index}});navLinks.forEach((link,index)=>link.classList.toggle('active',index===active))};const requestExperience=()=>{if(!experienceFrame)experienceFrame=requestAnimationFrame(updateExperience)};const stopIntro=()=>{if(introFrame){cancelAnimationFrame(introFrame);introFrame=0}};openTrigger.addEventListener('click',()=>{stopIntro();const startY=scrollY,targetY=Math.max(0,longScroll.offsetTop-18),startTime=performance.now(),duration=5200;const fly=now=>{const t=experienceClamp((now-startTime)/duration),ease=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;scrollTo(0,startY+(targetY-startY)*ease);if(t<1)introFrame=requestAnimationFrame(fly);else introFrame=0};introFrame=requestAnimationFrame(fly)});addEventListener('wheel',stopIntro,{passive:true});addEventListener('touchstart',stopIntro,{passive:true});addEventListener('scroll',requestExperience,{passive:true});addEventListener('resize',requestExperience);updateExperience();
     const rail=document.querySelector('#silk-rail');document.querySelectorAll('[data-rail]').forEach(b=>b.onclick=()=>rail.scrollBy({left:b.dataset.dir*window.innerWidth*.62,behavior:'smooth'}));let isDrag=false,startX=0,startScroll=0;rail.addEventListener('pointerdown',e=>{isDrag=true;startX=e.clientX;startScroll=rail.scrollLeft;rail.classList.add('dragging');rail.setPointerCapture(e.pointerId)});rail.addEventListener('pointermove',e=>{if(!isDrag)return;rail.scrollLeft=startScroll-(e.clientX-startX)*1.2});['pointerup','pointercancel'].forEach(name=>rail.addEventListener(name,()=>{isDrag=false;rail.classList.remove('dragging')}));
     const gallery=document.querySelector('.gallery'),lensToggle=document.querySelector('#lens-toggle');let lensEnabled=false;lensToggle.addEventListener('click',()=>{lensEnabled=!lensEnabled;gallery.classList.toggle('lens-enabled',lensEnabled);lensToggle.classList.toggle('is-on',lensEnabled);lensToggle.setAttribute('aria-pressed',String(lensEnabled));lensToggle.querySelector('i').textContent=lensEnabled?'✓':'＋';lensToggle.querySelector('span').textContent=lensEnabled?'放大镜已开启 · 点击关闭':'点击开启刺绣放大镜'});document.querySelectorAll('.magnify').forEach(card=>{const lens=card.querySelector('.lens'),image=card.querySelector('img');card.addEventListener('pointermove',e=>{if(!lensEnabled)return;const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const px=x/r.width*100,py=y/r.height*100;lens.style.left=(x-69)+'px';lens.style.top=(y-69)+'px';lens.style.backgroundImage=`url("${image.src}")`;lens.style.backgroundSize=(r.width*2.7)+'px '+(r.height*2.7)+'px';lens.style.backgroundPosition=`${px}% ${py}%`})});
     const modal=document.querySelector('#modal'),items=[...document.querySelectorAll('[data-title]')],copy=document.querySelector('#modal-copy'),pageLabel=document.querySelector('#page-label');let currentItem=null,page=0;const pageNames=['01 / 概念','02 / 画面','03 / 叙事'];function setPage(){if(!currentItem)return;const title=currentItem.dataset.title,desc=currentItem.dataset.desc,copyText=[desc,`画面以“${currentItem.dataset.type}”为线索，在色彩、材质与空间氛围之间建立统一语言。`,`这个章节与前后作品相连，构成从文化意象到当代观看体验的连续叙事。`];copy.classList.remove('flip');void copy.offsetWidth;copy.classList.add('flip');document.querySelector('#modal-title').textContent=title;document.querySelector('#modal-type').textContent=currentItem.dataset.type;document.querySelector('#modal-desc').textContent=copyText[page];pageLabel.textContent=pageNames[page]};items.forEach(item=>item.onclick=()=>{if(isDrag)return;currentItem=item;page=0;modal.classList.add('open');document.body.style.overflow='hidden';document.querySelector('#modal-img').src=item.querySelector('img').src;document.querySelector('#modal-img').alt=item.dataset.title;setPage()});document.querySelector('#page-next').onclick=()=>{page=(page+1)%3;setPage()};document.querySelector('#page-prev').onclick=()=>{page=(page+2)%3;setPage()};const close=()=>{modal.classList.remove('open');document.body.style.overflow=''};document.querySelector('.close').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
