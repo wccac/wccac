@@ -250,20 +250,6 @@
       font-family:var(--display);
       font-weight:700;
     }
-    .scroll-float{overflow:hidden}
-    .scroll-float-text{
-      display:inline-block;
-      font:inherit;
-      line-height:inherit;
-      letter-spacing:inherit;
-    }
-    .scroll-float .char{
-      display:inline-block;
-      opacity:0;
-      transform:translateY(120%) scaleY(2.3) scaleX(.7);
-      transform-origin:50% 0%;
-      will-change:opacity,transform;
-    }
     #silk,.gate,.journey,.summary{
       background:
         linear-gradient(105deg,rgba(255,255,255,.022),transparent 18% 37%,rgba(226,189,104,.028) 48%,transparent 62%),
@@ -355,7 +341,6 @@
     @media(prefers-reduced-motion:reduce){
       body:before,.hero:before{animation:none}
       .hero-video{transition:none}
-      .scroll-float .char{opacity:1!important;transform:none!important}
     }
   </style>
 </head>
@@ -386,7 +371,6 @@
     const gallery=document.querySelector('.gallery'),lensToggle=document.querySelector('#lens-toggle');let lensEnabled=false;lensToggle.addEventListener('click',()=>{lensEnabled=!lensEnabled;gallery.classList.toggle('lens-enabled',lensEnabled);lensToggle.classList.toggle('is-on',lensEnabled);lensToggle.setAttribute('aria-pressed',String(lensEnabled));lensToggle.querySelector('i').textContent=lensEnabled?'✓':'＋';lensToggle.querySelector('span').textContent=lensEnabled?'放大镜已开启 · 点击关闭':'点击开启刺绣放大镜'});document.querySelectorAll('.magnify').forEach(card=>{const lens=card.querySelector('.lens'),image=card.querySelector('img');card.addEventListener('pointermove',e=>{if(!lensEnabled)return;const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const px=x/r.width*100,py=y/r.height*100;lens.style.left=(x-69)+'px';lens.style.top=(y-69)+'px';lens.style.backgroundImage=`url("${image.src}")`;lens.style.backgroundSize=(r.width*2.7)+'px '+(r.height*2.7)+'px';lens.style.backgroundPosition=`${px}% ${py}%`})});
     const modal=document.querySelector('#modal'),items=[...document.querySelectorAll('[data-title]')],copy=document.querySelector('#modal-copy'),pageLabel=document.querySelector('#page-label');let currentItem=null,page=0;const pageNames=['01 / 概念','02 / 画面','03 / 叙事'];function setPage(){if(!currentItem)return;const title=currentItem.dataset.title,desc=currentItem.dataset.desc,copyText=[desc,`画面以“${currentItem.dataset.type}”为线索，在色彩、材质与空间氛围之间建立统一语言。`,`这个章节与前后作品相连，构成从文化意象到当代观看体验的连续叙事。`];copy.classList.remove('flip');void copy.offsetWidth;copy.classList.add('flip');document.querySelector('#modal-title').textContent=title;document.querySelector('#modal-type').textContent=currentItem.dataset.type;document.querySelector('#modal-desc').textContent=copyText[page];pageLabel.textContent=pageNames[page]};items.forEach(item=>item.onclick=()=>{if(isDrag)return;currentItem=item;page=0;modal.classList.add('open');document.body.style.overflow='hidden';document.querySelector('#modal-img').src=item.querySelector('img').src;document.querySelector('#modal-img').alt=item.dataset.title;setPage()});document.querySelector('#page-next').onclick=()=>{page=(page+1)%3;setPage()};document.querySelector('#page-prev').onclick=()=>{page=(page+2)%3;setPage()};const close=()=>{modal.classList.remove('open');document.body.style.overflow=''};document.querySelector('.close').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
     const video=document.querySelector('#garden-video'),sound=document.querySelector('#sound');video.play().catch(()=>{});sound.onclick=()=>{video.muted=!video.muted;video.play().catch(()=>{});sound.textContent=video.muted?'开启影片声音':'关闭影片声音';sound.setAttribute('aria-label',sound.textContent)};
-    const floatTitles=[...document.querySelectorAll('.chapter h2,.closing-copy h2,.journey h2,.summary h2')];const splitFloatTitle=el=>{el.classList.add('scroll-float');const label=el.innerText.replace(/\s+/g,' ').trim();el.setAttribute('aria-label',label);const wrap=document.createElement('span');wrap.className='scroll-float-text';wrap.setAttribute('aria-hidden','true');while(el.firstChild)wrap.appendChild(el.firstChild);el.appendChild(wrap);const walker=document.createTreeWalker(wrap,NodeFilter.SHOW_TEXT);const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(node=>{const frag=document.createDocumentFragment();[...node.nodeValue].forEach(char=>{const span=document.createElement('span');span.className='char';span.textContent=char===' '?'\u00A0':char;frag.appendChild(span)});node.replaceWith(frag)});el.floatChars=[...el.querySelectorAll('.char')]};floatTitles.forEach(splitFloatTitle);const clamp=n=>Math.max(0,Math.min(1,n));const backInOut=t=>{const s=2*1.525,x=t*2;if(x<1)return .5*(x*x*((s+1)*x-s));const y=x-2;return .5*(y*y*((s+1)*y+s)+2)};let floatFrame=0;const updateFloats=()=>{floatFrame=0;const vh=window.innerHeight;floatTitles.forEach(el=>{const rect=el.getBoundingClientRect(),center=rect.top+rect.height/2,start=vh*1.5,end=vh*.6-rect.height/2,progress=clamp((start-center)/(start-end)),chars=el.floatChars||[],total=1+Math.max(0,chars.length-1)*.03;chars.forEach((char,index)=>{const local=clamp(progress*total-index*.03),ease=backInOut(local),opacity=clamp(ease);char.style.opacity=opacity;char.style.transform=`translateY(${120*(1-ease)}%) scaleY(${2.3-1.3*ease}) scaleX(${.7+.3*ease})`})})};const requestFloatUpdate=()=>{if(!floatFrame)floatFrame=requestAnimationFrame(updateFloats)};window.addEventListener('scroll',requestFloatUpdate,{passive:true});window.addEventListener('resize',requestFloatUpdate);updateFloats();
     document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>document.querySelector('#'+b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'}));const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   </script>
 </body></html>
