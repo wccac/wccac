@@ -14,18 +14,346 @@
     .modal{display:none;position:fixed;z-index:60;inset:0;padding:20px;place-items:center;background:rgba(2,12,8,.92);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-inner{width:min(1050px,100%);max-height:92vh;display:grid;grid-template-columns:1.45fr .55fr;background:#eee8dd;color:var(--ink);position:relative;animation:up .35s ease-out}.modal img{width:100%;height:min(78vh,740px);object-fit:contain;background:#133025}.modal-copy{padding:48px 34px;transform-origin:left center}.modal-copy.flip{animation:flip .55s cubic-bezier(.2,.8,.2,1)}@keyframes flip{50%{transform:rotateY(-35deg);opacity:.15}100%{transform:none;opacity:1}}.modal-copy h3{font-size:34px;font-weight:500;margin:17px 0}.modal-copy p{font-size:14px;line-height:1.9}.page-control{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #c8bb9c;margin-top:25px;padding-top:17px;font:10px Arial,sans-serif;letter-spacing:.12em}.page-control button{border:1px solid var(--ink);background:transparent;width:35px;height:30px;cursor:pointer}.close{position:absolute;right:12px;top:7px;z-index:2;border:0;background:none;color:var(--ink);font-size:30px;cursor:pointer}@keyframes up{from{opacity:0;transform:translateY(19px)}to{opacity:1;transform:none}}.reveal{opacity:0;transform:translateY(30px);transition:.75s ease}.reveal.show{opacity:1;transform:none}
     @media(max-width:720px){.cursor{display:none}.nav{height:58px}.links{display:none}.hero{min-height:620px;padding-bottom:6vh}.hero-foot{display:block}.scroll{display:none}.chapter{grid-template-columns:1fr;gap:15px;padding:70px 6vw 30px}.gallery,.motion{padding-left:6vw;padding-right:6vw;padding-bottom:72px}.rail{grid-auto-columns:82vw}.work{height:55vh;min-height:400px}.work-info{transform:none;padding:17px}.work h3{font-size:22px}.lens{display:none!important}.film{height:62vh;min-height:430px}.film-copy{padding:28px}.sound{right:16px;top:16px}.timeline{left:18px;right:18px;bottom:13px}.timeline button{font-size:8px}.myth{padding-bottom:70px}.myth-grid{padding:0 6vw;grid-template-columns:1fr;gap:12px}.myth-card{min-height:430px}.journey{padding:70px 6vw}.journey:before{display:none}.map{grid-template-columns:1fr;gap:28px}.summary{grid-template-columns:1fr;padding:76px 6vw;gap:16px}.modal-inner{grid-template-columns:1fr}.modal img{height:52vh}.modal-copy{padding:25px}.modal-copy h3{font-size:28px}footer{display:block;line-height:2.1}}
   </style>
+  <style>
+    :root{
+      --ink:#071914;
+      --ink2:#102b23;
+      --paper:#f7f0df;
+      --gold:#e2bd68;
+      --gold-deep:#9e6f25;
+      --jade:#163c31;
+      --display:"STKaiti","KaiTi","FZKai-Z03","Songti SC",serif;
+      --serif:"Songti SC","STSong","Noto Serif SC",serif;
+    }
+    body{
+      background:
+        radial-gradient(ellipse at 18% 8%,rgba(75,126,100,.2),transparent 32%),
+        radial-gradient(ellipse at 82% 32%,rgba(205,170,92,.08),transparent 28%),
+        linear-gradient(115deg,#06130f 0%,#12372b 18%,#081e18 35%,#15392e 54%,#071a14 75%,#102e25 100%);
+      background-attachment:fixed;
+      font-family:var(--serif);
+    }
+    body:before{
+      opacity:.48;
+      background:
+        linear-gradient(104deg,transparent 0 13%,rgba(255,255,255,.045) 18%,transparent 24% 41%,rgba(229,196,124,.055) 47%,transparent 55% 73%,rgba(255,255,255,.035) 78%,transparent 84%),
+        repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 5px);
+      background-size:160% 100%,auto;
+      mix-blend-mode:screen;
+      animation:silkDrift 13s ease-in-out infinite alternate;
+    }
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:linear-gradient(165deg,rgba(255,255,255,.025),transparent 36%,rgba(0,0,0,.18) 67%,rgba(226,189,104,.035));
+    }
+    @keyframes silkDrift{to{background-position:25% 0,0 0}}
+    .nav{
+      position:fixed;
+      height:auto;
+      top:22px;
+      left:3vw;
+      width:94vw;
+      padding:0;
+      z-index:40;
+      pointer-events:none;
+    }
+    .brand,.links{pointer-events:auto}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:12px 17px;
+      border:1px solid rgba(226,189,104,.36);
+      background:linear-gradient(135deg,rgba(4,23,17,.86),rgba(23,57,46,.7));
+      box-shadow:0 14px 40px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.08);
+      backdrop-filter:blur(16px);
+      font-family:var(--display);
+      font-size:22px;
+      letter-spacing:.12em;
+    }
+    .brand:before{
+      content:"绣";
+      display:grid;
+      place-items:center;
+      width:27px;
+      height:27px;
+      color:#f6e6bb;
+      background:#9f392f;
+      border:1px solid #d78d76;
+      font-size:15px;
+      line-height:1;
+      box-shadow:0 0 0 3px rgba(159,57,47,.18);
+    }
+    .brand small{font-size:9px;letter-spacing:.18em}
+    .links{
+      gap:5px;
+      padding:7px;
+      border:1px solid rgba(226,189,104,.4);
+      border-radius:2px;
+      background:linear-gradient(135deg,rgba(3,20,15,.88),rgba(21,57,45,.76));
+      box-shadow:0 16px 42px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.08);
+      backdrop-filter:blur(18px) saturate(1.25);
+      font:13px var(--serif);
+      letter-spacing:.12em;
+    }
+    .links a{
+      position:relative;
+      padding:12px 17px;
+      color:#f2ead6;
+      transition:.28s ease;
+    }
+    .links a:before{
+      content:"";
+      position:absolute;
+      left:16px;
+      right:16px;
+      bottom:7px;
+      height:1px;
+      background:var(--gold);
+      transform:scaleX(0);
+      transition:.25s;
+    }
+    .links a:hover{
+      color:#fff4cf;
+      background:rgba(226,189,104,.13);
+      transform:translateY(-1px);
+    }
+    .links a:hover:before{transform:scaleX(1)}
+    .hero{
+      min-height:720px;
+      padding:0 6vw 8vh;
+      background:#061711;
+    }
+    .hero-video{
+      position:absolute;
+      inset:-3%;
+      z-index:-3;
+      width:106%;
+      height:106%;
+      object-fit:cover;
+      object-position:center;
+      filter:brightness(.56) saturate(.78) sepia(.16) contrast(1.08);
+      transform:scale(1.025);
+      transition:transform .18s linear;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      pointer-events:none;
+      background:
+        linear-gradient(105deg,rgba(255,255,255,.05) 0%,transparent 18%,rgba(224,188,103,.07) 38%,transparent 56%),
+        repeating-linear-gradient(98deg,rgba(255,255,255,.018) 0 1px,transparent 1px 6px);
+      mix-blend-mode:screen;
+      animation:heroSilk 8s ease-in-out infinite alternate;
+    }
+    .hero:after{
+      z-index:-1;
+      background:
+        linear-gradient(90deg,rgba(2,15,11,.94),rgba(4,21,15,.62) 48%,rgba(3,15,11,.2)),
+        linear-gradient(0deg,rgba(3,15,11,.97),transparent 64%),
+        radial-gradient(circle at 72% 38%,transparent 0 16%,rgba(3,14,10,.26) 55%);
+    }
+    @keyframes heroSilk{to{background-position:18% 0,10px 0}}
+    .hero-title{
+      position:relative;
+      width:min(1050px,86vw);
+      padding-left:25px;
+      border-left:1px solid rgba(226,189,104,.72);
+    }
+    .hero-title:before{
+      content:"";
+      position:absolute;
+      left:-5px;
+      top:0;
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 22px rgba(226,189,104,.9);
+    }
+    .hero h1{
+      font-family:var(--display);
+      font-size:clamp(58px,8.2vw,126px);
+      font-weight:700;
+      letter-spacing:.08em;
+      line-height:.9;
+      margin:18px 0 32px;
+      text-shadow:0 5px 28px rgba(0,0,0,.62),1px 1px 0 rgba(255,255,255,.12);
+    }
+    .hero h1 span:first-child{
+      color:#f8f0dc;
+      -webkit-text-stroke:.35px rgba(255,248,222,.5);
+    }
+    .hero h1 span:last-child{
+      font-size:.84em;
+      letter-spacing:.16em;
+    }
+    .hero h1 em{
+      position:relative;
+      color:transparent;
+      background:linear-gradient(180deg,#fff4bd 0%,#e6b956 46%,#93631d 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-stroke:.5px #f5d990;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,.32));
+    }
+    .hero h1 em:after{
+      content:"";
+      position:absolute;
+      left:-5%;
+      right:-1%;
+      bottom:.03em;
+      height:.08em;
+      background:linear-gradient(90deg,transparent,#e1b65c 14% 84%,transparent);
+      transform:rotate(-2deg);
+      opacity:.85;
+    }
+    .hero-seal{
+      position:absolute;
+      right:-58px;
+      top:28px;
+      width:42px;
+      padding:9px 7px;
+      border:1px solid rgba(255,213,190,.75);
+      background:rgba(146,48,42,.8);
+      color:#ffe8d7;
+      font:15px/1.35 var(--display);
+      letter-spacing:.12em;
+      writing-mode:vertical-rl;
+      box-shadow:0 8px 25px rgba(0,0,0,.35);
+    }
+    .hero .kicker{font-size:12px;color:#f0d58c}
+    .hero-foot p{font-size:15px;max-width:430px;color:#f0eadc}
+    .hero-sound{
+      position:absolute;
+      right:6vw;
+      bottom:8vh;
+      border:1px solid rgba(235,210,151,.65);
+      background:rgba(4,22,16,.55);
+      color:#f6ecd4;
+      padding:12px 17px;
+      cursor:pointer;
+      backdrop-filter:blur(12px);
+      font:12px var(--serif);
+      letter-spacing:.14em;
+      transition:.25s;
+    }
+    .hero-sound:hover{background:var(--gold);color:var(--ink)}
+    .chapter h2,.film-copy h2,.gate-art:after,.closing-copy h2,.journey h2,.summary h2,
+    .work h3,.myth-card h3,.modal-copy h3{
+      font-family:var(--display);
+      font-weight:700;
+    }
+    #silk,.gate,.journey,.summary{
+      background:
+        linear-gradient(105deg,rgba(255,255,255,.022),transparent 18% 37%,rgba(226,189,104,.028) 48%,transparent 62%),
+        linear-gradient(122deg,#081c16,#12372b 36%,#081e18 62%,#102e25);
+      background-size:160% 100%,100% 100%;
+    }
+    .myth{
+      background:
+        linear-gradient(108deg,rgba(255,255,255,.13),transparent 17% 39%,rgba(91,54,9,.13) 48%,transparent 62%),
+        linear-gradient(125deg,#d4aa50,#e7c875 34%,#c69539 65%,#e1bc67);
+    }
+    .lens-toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:16px;
+      padding:14px 16px;
+      border:1px solid rgba(226,189,104,.28);
+      background:rgba(4,24,18,.44);
+      backdrop-filter:blur(12px);
+    }
+    .lens-toolbar p{margin:0;color:#bfc9c0;font-size:12px;line-height:1.6}
+    .lens-toggle{
+      flex:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(226,189,104,.7);
+      background:transparent;
+      color:#f5ead1;
+      padding:11px 15px;
+      cursor:pointer;
+      transition:.25s;
+      font-size:13px;
+      letter-spacing:.06em;
+    }
+    .lens-toggle i{
+      width:20px;
+      height:20px;
+      display:grid;
+      place-items:center;
+      border:1px solid currentColor;
+      border-radius:50%;
+      font-style:normal;
+      line-height:1;
+    }
+    .lens-toggle:hover,.lens-toggle.is-on{background:var(--gold);color:var(--ink)}
+    .lens-toggle.is-on i{box-shadow:0 0 0 4px rgba(10,32,25,.15)}
+    .work.magnify:hover .lens{display:none}
+    .gallery.lens-enabled .work.magnify:hover .lens{display:block}
+    .gallery.lens-enabled .work.magnify{cursor:zoom-in}
+    .motion{display:none}
+    @media(max-width:900px){
+      .nav{top:12px;left:4vw;width:92vw;align-items:flex-start}
+      .brand{font-size:18px;padding:10px 12px}
+      .brand small{display:none}
+      .links{max-width:67vw;overflow-x:auto;white-space:nowrap;padding:5px}
+      .links a{padding:10px 12px;font-size:12px}
+      .hero-seal{right:-48px}
+    }
+    @media(max-width:720px){
+      .nav{display:block}
+      .brand{width:max-content}
+      .links{
+        display:flex;
+        position:fixed;
+        left:4vw;
+        right:4vw;
+        bottom:14px;
+        top:auto;
+        max-width:none;
+        justify-content:space-between;
+        z-index:45;
+        border-radius:3px;
+      }
+      .links a{padding:10px 8px;font-size:11px}
+      .hero{padding:0 7vw 12vh;min-height:680px}
+      .hero-title{padding-left:16px;width:88vw}
+      .hero h1{font-size:clamp(47px,15vw,72px);line-height:.98}
+      .hero h1 span:last-child{font-size:.72em;letter-spacing:.11em}
+      .hero-seal{right:1px;top:-52px;width:34px;font-size:12px;writing-mode:horizontal-tb;padding:6px}
+      .hero-sound{right:7vw;bottom:5vh}
+      .hero-foot p{max-width:68vw;font-size:13px}
+      .lens-toolbar{align-items:flex-start;flex-direction:column}
+      .lens-toggle{width:100%;justify-content:center}
+    }
+    @media(hover:none){.lens-toolbar{display:none}}
+    @media(prefers-reduced-motion:reduce){
+      body:before,.hero:before{animation:none}
+      .hero-video{transition:none}
+    }
+  </style>
 </head>
 <body>
   <div class="cursor"></div>
-  <nav class="nav"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a><div class="links"><a href="#silk">蜀绣瑞兽</a><a href="#motion">牡丹熊猫</a><a href="#myth">山海经</a><a href="#summary">创作总结</a></div></nav>
+  <nav class="nav"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a><div class="links"><a href="#motion">动态序章</a><a href="#silk">蜀绣瑞兽</a><a href="#myth">山海异兽</a><a href="#summary">创作总结</a></div></nav>
   <main id="top">
-    <section class="hero"><div class="hero-bg"></div><span class="kicker">WANG CHUN · VISUAL STORYTELLING</span><h1><span>在针脚与想象之间</span><br><span><em>遇见</em>东方生灵</span></h1><div class="hero-foot"><p>以刺绣的温度、神话的轮廓与动画的呼吸，编织一组关于自然与文化的视觉叙事。</p><span class="scroll">SCROLL TO EXPLORE ↓</span></div></section>
+    <section class="hero" id="motion"><video class="hero-video" id="garden-video" muted autoplay loop playsinline poster="assets/generated/02-peony-garden-video-poster.png"><source src="assets/video/embroidered-garden.mp4" type="video/mp4"></video><div class="hero-title"><span class="kicker">WANG CHUN · SHU EMBROIDERY VISUAL STORY</span><h1><span>在针脚与想象之间</span><br><span><em>遇见</em>东方生灵</span></h1><span class="hero-seal">蜀绣·灵境</span><div class="hero-foot"><p>以刺绣的温度、神话的轮廓与动画的呼吸，编织一组关于自然与文化的视觉叙事。</p><span class="scroll">SCROLL TO EXPLORE ↓</span></div></div><button class="hero-sound" id="sound" aria-label="开启首屏视频声音">开启影片声音</button></section>
     <section id="silk" class="reveal"><div class="chapter"><div><span class="kicker">01 / SHU EMBROIDERY</span><h2>蜀绣灵境<br>瑞兽花园</h2></div><div><p>金丝猴与熊猫共同构成这一章节的主角。以丝线光泽、花木园林和温柔的自然色调为语言，让传统刺绣不止被观看，也像一个可漫步进入的世界。</p><div class="line"><span>金丝猴</span><span>熊猫</span><span>丝线肌理</span></div></div></div><div class="gallery"><div class="rail" id="silk-rail">
       <article class="work magnify" data-title="灵境同游 · 金丝猴与熊猫" data-type="蜀绣灵境 / 角色叙事" data-desc="金丝猴与熊猫第一次被置于同一座花园；松枝、牡丹、瑞鸟与山水共同构成世界观的开端。"><img src="assets/generated/01-lingjing-companions.png" alt="灵境同游金丝猴与熊猫"><i class="lens"></i><div class="work-info"><span class="type">GOLDEN MONKEY · PANDA · EMBROIDERY</span><h3>灵境同游</h3></div></article>
       <article class="work magnify" data-pos="panda" data-title="牡丹熊猫花园" data-type="蜀绣灵境 / 花鸟园林" data-desc="熊猫、牡丹、紫藤和鸟群被组织成一座轻盈的绣线花园；它也是后续动态短片的静态起点。"><img src="assets/embroidery/peony-panda.png" alt="牡丹熊猫花园"><i class="lens"></i><div class="work-info"><span class="type">PANDA · EMBROIDERY GARDEN</span><h3>牡丹熊猫花园</h3></div></article>
       <article class="work magnify" data-title="慈佑金灵" data-type="蜀绣灵境 / 瑞兽插画" data-desc="以瑞兽与自然植被的关系，补充灵境世界的守护主题。"><img src="assets/embroidery/慈佑金灵.png" alt="慈佑金灵"><i class="lens"></i><div class="work-info"><span class="type">SPIRIT · SILK THREAD ART</span><h3>慈佑金灵</h3></div></article>
-    </div><div class="rail-nav"><button data-rail="silk-rail" data-dir="-1" aria-label="向左浏览">←</button><button data-rail="silk-rail" data-dir="1" aria-label="向右浏览">→</button></div></div></section>
-    <section class="motion reveal" id="motion"><div class="film"><button class="sound" id="sound">开启声音</button><video id="garden-video" muted loop playsinline poster="assets/generated/02-peony-garden-video-poster.png"><source src="assets/video/embroidered-garden.mp4" type="video/mp4"></video><div class="film-copy"><span class="kicker">02 / MOTION VISUAL</span><h2>牡丹熊猫 · 丝线在风中苏醒</h2><span class="type">从静态刺绣画面延展为动态花园</span></div><div class="timeline"><button class="active" data-time="0">01 / 花园初现</button><button data-time=".33">02 / 小鸟起飞</button><button data-time=".66">03 / 走向熊猫</button></div></div></section>
+    </div><div class="lens-toolbar"><div><span class="type">DETAIL VIEW / 针脚观察</span><p>放大镜默认关闭。开启后，将鼠标移到作品上查看丝线与针脚细节。</p></div><button class="lens-toggle" id="lens-toggle" type="button" aria-pressed="false"><i>＋</i><span>点击开启刺绣放大镜</span></button></div><div class="rail-nav"><button data-rail="silk-rail" data-dir="-1" aria-label="向左浏览">←</button><button data-rail="silk-rail" data-dir="1" aria-label="向右浏览">→</button></div></div></section>
     <section class="gate reveal" aria-label="山海启卷"><div class="gate-art"><img src="assets/generated/03-shanhai-scroll-transition.png" alt="山海启卷刺绣转场"><span>03 / ENTER THE CLASSIC OF MOUNTAINS AND SEAS</span></div></section>
     <section class="myth reveal" id="myth"><div class="chapter"><div><span class="kicker">03 / CLASSIC OF MOUNTAINS AND SEAS</span><h2>山海经<br>异兽小志</h2></div><div><p>只保留两位最能代表系列气质的神兽：白泽与九尾狐。它们以更简洁、具有亲和力的角色形象，连接古老神话与当代视觉语言。</p><div class="line"><span>白泽</span><span>九尾狐</span><span>神话新绘</span></div></div></div><div class="myth-grid">
       <article class="myth-card" data-title="白泽神兽志" data-type="山海经 / 神兽角色设计" data-desc="横构图以幽林和萤光为场景，把白泽的智慧、守护与自然感收拢到一个有呼吸的神话瞬间。"><img src="assets/myth/baize-landscape.png" alt="白泽神兽横构图"><div class="work-info"><span class="type">MYTHICAL CHARACTER 01</span><h3>白泽神兽志</h3></div></article>
@@ -38,11 +366,11 @@
   <div class="modal" id="modal" aria-hidden="true"><div class="modal-inner"><button class="close" aria-label="关闭">×</button><img id="modal-img" alt=""><div class="modal-copy" id="modal-copy"><span class="type" id="modal-type"></span><h3 id="modal-title"></h3><p id="modal-desc"></p><div class="page-control"><span id="page-label">01 / 概念</span><div><button id="page-prev" aria-label="上一页">←</button><button id="page-next" aria-label="下一页">→</button></div></div></div></div></div>
   <script>
     const cursor=document.querySelector('.cursor');document.addEventListener('pointermove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});document.querySelectorAll('a,button,.work,.myth-card').forEach(el=>{el.addEventListener('pointerenter',()=>cursor.classList.add('on'));el.addEventListener('pointerleave',()=>cursor.classList.remove('on'))});document.addEventListener('click',e=>{if(e.target.closest('.close'))return;const r=document.createElement('i');r.className='ripple';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';document.body.appendChild(r);r.addEventListener('animationend',()=>r.remove())});
-    const hero=document.querySelector('.hero'),heroBg=document.querySelector('.hero-bg');hero.addEventListener('pointermove',e=>{const x=(e.clientX/window.innerWidth-.5)*18,y=(e.clientY/window.innerHeight-.5)*12;heroBg.style.transform=`translate(${x}px,${y}px) scale(1.03)`});hero.addEventListener('pointerleave',()=>heroBg.style.transform='');
+    const hero=document.querySelector('.hero'),heroBg=document.querySelector('.hero-video');hero.addEventListener('pointermove',e=>{const x=(e.clientX/window.innerWidth-.5)*12,y=(e.clientY/window.innerHeight-.5)*8;heroBg.style.transform=`translate(${x}px,${y}px) scale(1.045)`});hero.addEventListener('pointerleave',()=>heroBg.style.transform='scale(1.025)');
     const rail=document.querySelector('#silk-rail');document.querySelectorAll('[data-rail]').forEach(b=>b.onclick=()=>rail.scrollBy({left:b.dataset.dir*window.innerWidth*.62,behavior:'smooth'}));let isDrag=false,startX=0,startScroll=0;rail.addEventListener('pointerdown',e=>{isDrag=true;startX=e.clientX;startScroll=rail.scrollLeft;rail.classList.add('dragging');rail.setPointerCapture(e.pointerId)});rail.addEventListener('pointermove',e=>{if(!isDrag)return;rail.scrollLeft=startScroll-(e.clientX-startX)*1.2});['pointerup','pointercancel'].forEach(name=>rail.addEventListener(name,()=>{isDrag=false;rail.classList.remove('dragging')}));
-    document.querySelectorAll('.magnify').forEach(card=>{const lens=card.querySelector('.lens'),image=card.querySelector('img');card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const px=x/r.width*100,py=y/r.height*100;lens.style.left=(x-69)+'px';lens.style.top=(y-69)+'px';lens.style.backgroundImage=`url("${image.src}")`;lens.style.backgroundSize=(r.width*2.7)+'px '+(r.height*2.7)+'px';lens.style.backgroundPosition=`${px}% ${py}%`})});
+    const gallery=document.querySelector('.gallery'),lensToggle=document.querySelector('#lens-toggle');let lensEnabled=false;lensToggle.addEventListener('click',()=>{lensEnabled=!lensEnabled;gallery.classList.toggle('lens-enabled',lensEnabled);lensToggle.classList.toggle('is-on',lensEnabled);lensToggle.setAttribute('aria-pressed',String(lensEnabled));lensToggle.querySelector('i').textContent=lensEnabled?'✓':'＋';lensToggle.querySelector('span').textContent=lensEnabled?'放大镜已开启 · 点击关闭':'点击开启刺绣放大镜'});document.querySelectorAll('.magnify').forEach(card=>{const lens=card.querySelector('.lens'),image=card.querySelector('img');card.addEventListener('pointermove',e=>{if(!lensEnabled)return;const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const px=x/r.width*100,py=y/r.height*100;lens.style.left=(x-69)+'px';lens.style.top=(y-69)+'px';lens.style.backgroundImage=`url("${image.src}")`;lens.style.backgroundSize=(r.width*2.7)+'px '+(r.height*2.7)+'px';lens.style.backgroundPosition=`${px}% ${py}%`})});
     const modal=document.querySelector('#modal'),items=[...document.querySelectorAll('[data-title]')],copy=document.querySelector('#modal-copy'),pageLabel=document.querySelector('#page-label');let currentItem=null,page=0;const pageNames=['01 / 概念','02 / 画面','03 / 叙事'];function setPage(){if(!currentItem)return;const title=currentItem.dataset.title,desc=currentItem.dataset.desc,copyText=[desc,`画面以“${currentItem.dataset.type}”为线索，在色彩、材质与空间氛围之间建立统一语言。`,`这个章节与前后作品相连，构成从文化意象到当代观看体验的连续叙事。`];copy.classList.remove('flip');void copy.offsetWidth;copy.classList.add('flip');document.querySelector('#modal-title').textContent=title;document.querySelector('#modal-type').textContent=currentItem.dataset.type;document.querySelector('#modal-desc').textContent=copyText[page];pageLabel.textContent=pageNames[page]};items.forEach(item=>item.onclick=()=>{if(isDrag)return;currentItem=item;page=0;modal.classList.add('open');document.body.style.overflow='hidden';document.querySelector('#modal-img').src=item.querySelector('img').src;document.querySelector('#modal-img').alt=item.dataset.title;setPage()});document.querySelector('#page-next').onclick=()=>{page=(page+1)%3;setPage()};document.querySelector('#page-prev').onclick=()=>{page=(page+2)%3;setPage()};const close=()=>{modal.classList.remove('open');document.body.style.overflow=''};document.querySelector('.close').onclick=close;modal.onclick=e=>{if(e.target===modal)close()};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-    const video=document.querySelector('#garden-video'),sound=document.querySelector('#sound');new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?video.play().catch(()=>{}):video.pause()),{threshold:.35}).observe(video);sound.onclick=()=>{video.muted=!video.muted;sound.textContent=video.muted?'开启声音':'关闭声音'};document.querySelectorAll('[data-time]').forEach(b=>b.onclick=()=>{const go=()=>{video.currentTime=video.duration*Number(b.dataset.time);video.play().catch(()=>{})};if(video.readyState>0)go();else video.addEventListener('loadedmetadata',go,{once:true});document.querySelectorAll('[data-time]').forEach(x=>x.classList.toggle('active',x===b))});
+    const video=document.querySelector('#garden-video'),sound=document.querySelector('#sound');video.play().catch(()=>{});sound.onclick=()=>{video.muted=!video.muted;video.play().catch(()=>{});sound.textContent=video.muted?'开启影片声音':'关闭影片声音';sound.setAttribute('aria-label',sound.textContent)};
     document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>document.querySelector('#'+b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'}));const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   </script>
 </body></html>
