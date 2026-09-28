@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="王淳的东方视觉作品集"><title>王淳｜绣境异兽</title>
+  <script>
+    // Keep an explicit desktop link available while phones open the touch layout.
+    if (new URLSearchParams(location.search).get('view') !== 'desktop' && matchMedia('(max-width: 720px)').matches) {
+      const mobileView = ['#silk', '#lingjing'].includes(location.hash) ? 'garden' : location.hash === '#myth' ? 'beasts' : 'home';
+      location.replace(new URL('./mobile/#' + mobileView, location.href));
+    }
+  </script>
   <style>
     :root{--ink:#0a2019;--ink2:#123128;--paper:#f3eee1;--gold:#d4a858;--rose:#b75148;--mist:#aebbb1}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--paper);font-family:"Noto Serif SC","Songti SC",STSong,serif;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}button{font:inherit}a{color:inherit;text-decoration:none}.cursor{width:15px;height:15px;border:1px solid var(--gold);border-radius:99px;position:fixed;z-index:99;pointer-events:none;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}.cursor.on{width:54px;height:54px;background:rgba(212,168,88,.22)}.ripple{width:7px;height:7px;border:1px solid var(--gold);border-radius:50%;position:fixed;z-index:98;pointer-events:none;animation:ripple .7s ease-out forwards}@keyframes ripple{to{width:92px;height:92px;opacity:0;transform:translate(-43px,-43px)}}
     .nav{height:76px;position:absolute;z-index:5;top:0;left:0;width:100%;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;letter-spacing:.1em}.brand{font-size:18px;font-weight:600}.brand small{font:10px Arial,sans-serif;color:var(--gold);margin-left:8px}.links{display:flex;gap:27px;font:11px Arial,sans-serif;letter-spacing:.17em}.links a:hover{color:var(--gold)}
@@ -430,11 +437,11 @@
   <script src="assets/site-refinements.js?v=20260928-1" defer></script>
   <script src="assets/gold-cursor.js?v=20260928-2" defer></script>
 </head>
-<body data-site-revision="20260928-cursor-2">
+<body data-site-revision="20260928-mobile-1">
   <canvas class="dark-veil" id="dark-veil" aria-hidden="true"></canvas>
   <div class="cursor"></div>
   <svg class="gold-trail" id="gold-trail" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"></svg>
-  <nav class="nav"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a><div class="links"><a href="#motion">动态序章</a><a href="#silk">蜀绣花园</a><a href="#lingjing">灵境同游</a><a href="#myth">山海异兽</a><a href="#summary">创作总结</a></div></nav>
+  <nav class="nav"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a><div class="links"><a href="#motion">动态序章</a><a href="#silk">蜀绣花园</a><a href="#lingjing">灵境同游</a><a href="#myth">山海异兽</a><a href="#summary">创作总结</a><a href="./mobile/">手机版 ↗</a></div></nav>
   <main id="top">
     <section class="hero" id="motion"><video class="hero-video" id="garden-video" muted autoplay loop playsinline poster="assets/generated/02-peony-garden-video-poster.png"><source src="assets/video/embroidered-garden.mp4" type="video/mp4"></video><div class="hero-title"><span class="kicker">WANG CHUN · SHU EMBROIDERY VISUAL STORY</span><h1><span>蜀绣·灵境</span><br><span><em>万象</em>生花</span></h1><div class="hero-foot"><p>以刺绣的温度、神话的轮廓与动画的呼吸，编织一组关于自然与文化的视觉叙事。</p><span class="scroll">SCROLL TO EXPLORE ↓</span></div></div><button class="hero-sound" id="sound" aria-label="开启首屏视频声音">开启影片声音</button></section>
     <section id="silk" class="reveal"><div class="chapter"><div><span class="kicker">01 / SHU EMBROIDERY</span><h2>蜀绣灵境<br>瑞兽花园</h2></div><div><p>金丝猴与熊猫共同构成这一章节的主角。以丝线光泽、花木园林和温柔的自然色调为语言，让传统刺绣不止被观看，也像一个可漫步进入的世界。</p><div class="line"><span>金丝猴</span><span>熊猫</span><span>丝线肌理</span></div></div></div><div class="gallery"><div class="rail" id="silk-rail">
