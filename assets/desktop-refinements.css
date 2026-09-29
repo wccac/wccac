@@ -1,8 +1,10 @@
 /* Desktop display: Long Cang, SIL OFL. Small controls: LXGW WenKai. */
 @font-face{font-family:"Desktop Brush";src:url("fonts/LongCang-Desktop.subset.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+/* Long Cang's 兽 resembles 曾. Use a clear brush glyph without changing the text. */
+@font-face{font-family:"Desktop Brush Beast";src:url("fonts/MaShanZheng-Beast.subset.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap;unicode-range:U+517D}
 @font-face{font-family:"Desktop WenKai";src:url("fonts/LXGWWenKai-Medium.desktop.subset.woff2") format("woff2");font-style:normal;font-weight:500;font-display:swap}
 @font-face{font-family:"Artist Signature";src:url("fonts/ZhiMangXing-Signature.subset.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
-:root{--calligraphy:"Desktop Brush","Desktop WenKai","Kaiti SC","KaiTi",serif;--ui-handwriting:"Desktop WenKai","Kaiti SC","KaiTi",serif;--desktop-paper:#eee6d1;--desktop-muted:#bbcbbf;--desktop-gold:#d5b777}
+:root{--calligraphy:"Desktop Brush Beast","Desktop Brush","Desktop WenKai","Kaiti SC","KaiTi",serif;--ui-handwriting:"Desktop WenKai","Kaiti SC","KaiTi",serif;--desktop-paper:#eee6d1;--desktop-muted:#bbcbbf;--desktop-gold:#d5b777}
 html{scroll-padding-top:0}
 .nav{position:absolute;top:18px;left:4vw;width:92vw}
 .nav,.nav .brand,.nav .links{background:none;backdrop-filter:none;box-shadow:none}
@@ -45,6 +47,15 @@ html{scroll-padding-top:0}
 .work:hover img{transform:scale(1.025);filter:none}
 .gallery-toolbar,.chapter-exit,.scroll-footer{display:flex;align-items:center;justify-content:space-between;gap:25px}
 .gallery-toolbar{padding:26px 0 10px}
+.gallery-tools{display:flex;align-items:flex-start;flex-direction:column;gap:15px}
+.gallery-tools .lens-toggle{width:auto;padding:10px 15px;font:13px/1.5 var(--serif)}
+.gallery-tools .lens-toggle i{width:18px;height:18px;position:relative;font-size:13px}
+.gallery-tools .lens-toggle i:after{content:"";position:absolute;width:6px;height:1px;background:currentColor;right:-4px;bottom:-2px;transform:rotate(45deg)}
+#silk-rail .work .lens{display:none;width:184px;height:184px;border:1px solid #e9cf90;background-color:#102a1d;background-origin:border-box;border-radius:50%;box-shadow:0 0 0 5px rgba(226,189,104,.15),0 12px 36px rgba(0,0,0,.38);z-index:6;transition:none}
+.gallery.lens-enabled #silk-rail .work .lens.is-visible{display:block}
+.gallery.lens-enabled #silk-rail .work img{transform:none;transition:none;filter:none}
+body.lens-mode .cursor{opacity:0}
+@media(hover:none),(pointer:coarse){.gallery-tools .lens-toggle{display:none}}
 .gallery-toolbar p{margin:0;color:#b9c8b9;font:14px/1.9 var(--serif);letter-spacing:.08em}
 .gallery-controls{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .gallery-controls button,.modal-navigation button{width:42px;height:42px;border:1px solid rgba(211,182,113,.38);border-radius:50%;background:transparent;color:#e9d5a1;font-size:18px;transition:background .2s,border-color .2s}

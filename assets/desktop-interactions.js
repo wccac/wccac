@@ -40,6 +40,14 @@
 
   // Three identical runs keep drag movement continuous in either direction.
   const originalCards = rail ? [...rail.children].filter(card => card.classList.contains('work')) : [];
+  const lensToggle = $('#lens-toggle');
+  let lensEnabled = false, activeLens = null;
+  originalCards.forEach(card => {
+    card.classList.add('magnify');
+    const lens = document.createElement('i');
+    lens.className = 'lens'; lens.setAttribute('aria-hidden', 'true');
+    card.appendChild(lens);
+  });
   let leadingCards = [], trailingCards = [];
   const copyCard = original => {
     const copy = original.cloneNode(true);
@@ -67,7 +75,7 @@
   const railSpeed = 76;
   const mod = (value, divisor) => divisor ? ((value % divisor) + divisor) % divisor : 0;
   const normalizePosition = value => railLoop ? railBase + mod(value - railBase, railLoop) : value;
-  const railCanRun = () => !!(rail && railLoop && railVisible && !document.hidden && !modalIsOpen() && !railDrag && (!railPaused || railTween));
+  const railCanRun = () => !!(rail && railLoop && railVisible && !document.hidden && !modalIsOpen() && !railDrag && !activeLens && (!railPaused || railTween));
   const updateRailControls = () => {
     const pause = $('#gallery-pause');
     if (pause) {
@@ -100,6 +108,7 @@
   };
   const measureRail = () => {
     if (!rail || !originalCards.length || !rail.clientWidth) return;
+    hideLens();
     const oldFraction = railLayoutReady && railLoop ? mod(railPosition - railBase, railLoop) / railLoop : 0;
     const first = rail.firstElementChild;
     railBase = originalCards[0].offsetLeft - first.offsetLeft;
@@ -131,8 +140,53 @@
       cancelAnimationFrame(railFrame); railFrame = 0; railLastTime = 0;
     } else if (!railFrame) railFrame = requestAnimationFrame(paintRail);
   }
+  function hideLens() {
+    if (!activeLens) return;
+    activeLens.classList.remove('is-visible'); activeLens = null;
+    document.body.classList.remove('lens-mode');
+    holdRail(350); syncRail();
+  }
+  const moveLens = event => {
+    const card = event.target.closest('.work');
+    if (!lensEnabled || event.pointerType === 'touch' || railDrag || modalIsOpen() || !card || !rail?.contains(card)) {
+      hideLens(); return;
+    }
+    const image = card.querySelector('img'), lens = card.querySelector('.lens');
+    if (!image?.naturalWidth || !lens) { hideLens(); return; }
+    const box = image.getBoundingClientRect(), cardBox = card.getBoundingClientRect();
+    const x = event.clientX - box.left, y = event.clientY - box.top;
+    if (!box.width || !box.height || x < 0 || y < 0 || x > box.width || y > box.height) { hideLens(); return; }
+    if (activeLens !== lens) {
+      hideLens(); activeLens = lens; railTween = null;
+      lens.classList.add('is-visible'); document.body.classList.add('lens-mode'); syncRail();
+    }
+    // Match the visible cover crop before magnifying, including portrait artwork.
+    const zoom = 2.7, radius = lens.offsetWidth / 2;
+    const scale = Math.max(box.width / image.naturalWidth, box.height / image.naturalHeight);
+    const width = image.naturalWidth * scale, height = image.naturalHeight * scale;
+    const centerX = Math.max(radius, Math.min(box.width - radius, x));
+    const centerY = Math.max(radius, Math.min(box.height - radius, y));
+    Object.assign(lens.style, {
+      left: `${box.left - cardBox.left + centerX - radius}px`,
+      top: `${box.top - cardBox.top + centerY - radius}px`,
+      backgroundImage: `url(${JSON.stringify(image.currentSrc || image.src)})`,
+      backgroundSize: `${width * zoom}px ${height * zoom}px`,
+      backgroundPosition: `${radius - (x + (width - box.width) / 2) * zoom}px ${radius - (y + (height - box.height) / 2) * zoom}px`
+    });
+  };
+  lensToggle?.addEventListener('click', () => {
+    lensEnabled = !lensEnabled;
+    rail?.closest('.gallery')?.classList.toggle('lens-enabled', lensEnabled);
+    lensToggle.classList.toggle('is-on', lensEnabled);
+    lensToggle.setAttribute('aria-pressed', String(lensEnabled));
+    lensToggle.querySelector('span').textContent = lensEnabled ? '关闭刺绣放大镜' : '开启刺绣放大镜';
+    const hint = $('#gallery-hint');
+    if (hint) hint.textContent = lensEnabled ? '移入绣面，细看针脚。点击作品，查看完整画面。' : '绣卷缓行，花木相逢。拖动浏览，或轻触一幅作品。';
+    if (!lensEnabled) hideLens();
+  });
   const stepRail = direction => {
     if (!rail || !railLoop || originalCards.length < 2) return;
+    hideLens();
     railTween = null;
     const relative = mod(railPosition - railBase, railLoop);
     let target;
@@ -150,6 +204,7 @@
     rail.addEventListener('dragstart', event => event.preventDefault());
     rail.addEventListener('pointerdown', event => {
       if (railDrag || event.button !== 0 || originalCards.length < 2) return;
+      hideLens();
       railTween = null; holdRail();
       railDrag = { id: event.pointerId, startX: event.clientX, lastX: event.clientX, moved: false };
       const capture = event.target.closest('.work') || rail;
@@ -166,6 +221,10 @@
       }
       railDrag.lastX = event.clientX;
     });
+    rail.addEventListener('pointermove', moveLens);
+    rail.addEventListener('pointerleave', hideLens);
+    window.addEventListener('scroll', hideLens, { passive: true });
+    window.addEventListener('blur', hideLens);
     const endDrag = event => {
       if (!railDrag || event.pointerId !== railDrag.id) return;
       const previous = railDrag;
@@ -182,6 +241,7 @@
     rail.addEventListener('wheel', event => {
       const horizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY) || event.shiftKey;
       if (!horizontal || !railLoop) return;
+      hideLens();
       event.preventDefault(); railTween = null; holdRail();
       writeRail(railPosition + (event.deltaX || event.deltaY)); syncRail();
     }, { passive: false });
@@ -282,6 +342,7 @@
   };
   const openModal = (index, trigger) => {
     if (!modalReady || !works[index]) return;
+    hideLens();
     if (!modalIsOpen()) {
       const candidate = trigger || document.activeElement;
       returnFocus = candidate?.closest('[aria-hidden="true"]') ? works[index].element : candidate;
@@ -306,7 +367,7 @@
   };
   if (modalReady) {
     document.addEventListener('click', event => {
-      if (event.target.closest('#modal') || event.target.closest('#gallery-prev,#gallery-next,#gallery-pause,#scroll-pause')) return;
+      if (event.target.closest('#modal') || event.target.closest('#gallery-prev,#gallery-next,#gallery-pause,#scroll-pause,#lens-toggle')) return;
       const trigger = event.target.closest('[data-title]');
       if (!trigger || (rail?.contains(trigger) && performance.now() < ignoreRailClickUntil)) return;
       const index = resolveWork(trigger);
@@ -341,7 +402,7 @@
       if (modalIsOpen() && !modal.contains(event.target)) (modalClose || modalInner).focus({ preventScroll: true });
     });
   }
-  document.addEventListener('visibilitychange', () => { syncRail(); syncScroll(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hideLens(); syncRail(); syncScroll(); });
   reduced.addEventListener('change', () => {
     if (reduced.matches) { railPaused = true; scrollPaused = true; railTween = null; }
     syncRail(); syncScroll();
