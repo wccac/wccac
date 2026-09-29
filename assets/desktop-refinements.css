@@ -104,8 +104,11 @@ body.lens-mode .cursor{opacity:0}
 .gate-art{height:290px;min-height:0}
 .gate-art:after{font-size:clamp(38px,4vw,62px)}
 .myth{padding-bottom:90px;background:linear-gradient(180deg,rgba(111,146,105,0) 0%,rgba(111,146,105,.04) 18%,rgba(111,146,105,.17) 42%,rgba(111,146,105,.37) 72%,rgba(111,146,105,.58) 100%)!important}
-/* Carry the same endpoint into the following section so no horizontal seam appears. */
-.journey{background:linear-gradient(180deg,rgba(111,146,105,.58),rgba(111,146,105,.3) 40%,rgba(111,146,105,0) 100%)!important}
+/* The directory now introduces the work, directly after the opening film. */
+.journey{padding-top:64px;padding-bottom:64px;background:transparent!important}
+@media(min-width:721px){.journey .map{aspect-ratio:2.05;min-height:520px}.journey .map .journey-stop{top:56%}.journey .map .journey-stop:nth-of-type(2){top:45%}.journey .map .journey-stop:nth-of-type(3){top:56%}}
+.journey-intro{max-width:850px;line-height:1.9}
+.journey-heading .kicker{font:11px/1.8 var(--serif);letter-spacing:.18em;color:#c9b77d}
 .myth .chapter p{color:#c9d3bd!important}
 .myth .line{color:#cbbd89!important}
 .myth-grid{gap:30px;grid-template-columns:repeat(6,minmax(0,1fr))}
@@ -123,7 +126,7 @@ body.lens-mode .cursor{opacity:0}
 .journey-heading{margin-left:0;text-align:left;max-width:1080px}
 .journey h2{font-size:clamp(30px,3.2vw,46px);line-height:1.4}
 .journey .map b{font-weight:400;font-size:clamp(26px,2.7vw,39px)}
-.summary{background:radial-gradient(ellipse at 18% 38%,rgba(48,96,64,.26),transparent 66%)!important;padding:100px 7vw 110px;align-items:start;grid-template-columns:1fr 1fr;gap:12vw;text-align:left}
+.summary{background:linear-gradient(180deg,rgba(111,146,105,.58),rgba(111,146,105,.3) 40%,rgba(111,146,105,0) 100%)!important;padding:100px 7vw 110px;align-items:start;grid-template-columns:1fr 1fr;gap:12vw;text-align:left}
 .summary h2{font-size:clamp(54px,6.3vw,92px);line-height:1.2;letter-spacing:.065em;margin:0 0 36px;color:#eee1be}
 .summary .note-copy p{font-size:16px;line-height:2.1;letter-spacing:.12em;margin:0 0 25px;color:#bacab6}
 .artist-signature{display:flex;align-items:center;gap:28px;padding-top:19px}
