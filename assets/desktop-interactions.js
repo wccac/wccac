@@ -327,7 +327,7 @@
   }
 
   const setBackgroundInert = () => {
-    inertSnapshot = [...document.querySelectorAll('body > main,body > nav,body > header,body > footer')].filter(element => !element.contains(modal)).map(element => ({ element, attribute: element.getAttribute('inert') }));
+    inertSnapshot = [...document.querySelectorAll('body > main,body > nav,body > header,body > footer,body > .music-control')].filter(element => !element.contains(modal)).map(element => ({ element, attribute: element.getAttribute('inert') }));
     inertSnapshot.forEach(({ element }) => element.setAttribute('inert', ''));
   };
   const restoreBackgroundInert = () => {
