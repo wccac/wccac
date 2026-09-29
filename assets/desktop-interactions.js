@@ -41,7 +41,8 @@
   // Three identical runs keep drag movement continuous in either direction.
   const originalCards = rail ? [...rail.children].filter(card => card.classList.contains('work')) : [];
   const lensToggle = $('#lens-toggle');
-  let lensEnabled = false, activeLens = null;
+  let lensEnabled = false, activeLens = null, lensFrame = 0, lensPoint = null;
+  let hoveredCard = null;
   originalCards.forEach(card => {
     card.classList.add('magnify');
     const lens = document.createElement('i');
@@ -75,7 +76,7 @@
   const railSpeed = 76;
   const mod = (value, divisor) => divisor ? ((value % divisor) + divisor) % divisor : 0;
   const normalizePosition = value => railLoop ? railBase + mod(value - railBase, railLoop) : value;
-  const railCanRun = () => !!(rail && railLoop && railVisible && !document.hidden && !modalIsOpen() && !railDrag && !activeLens && (!railPaused || railTween));
+  const railCanRun = () => !!(rail && railLoop && railVisible && !document.hidden && !modalIsOpen() && !railDrag && !activeLens && (!hoveredCard || railTween) && (!railPaused || railTween));
   const updateRailControls = () => {
     const pause = $('#gallery-pause');
     if (pause) {
@@ -108,7 +109,7 @@
   };
   const measureRail = () => {
     if (!rail || !originalCards.length || !rail.clientWidth) return;
-    hideLens();
+    clearGalleryHover();
     const oldFraction = railLayoutReady && railLoop ? mod(railPosition - railBase, railLoop) / railLoop : 0;
     const first = rail.firstElementChild;
     railBase = originalCards[0].offsetLeft - first.offsetLeft;
@@ -141,11 +142,25 @@
     } else if (!railFrame) railFrame = requestAnimationFrame(paintRail);
   }
   function hideLens() {
+    cancelAnimationFrame(lensFrame); lensFrame = 0; lensPoint = null;
     if (!activeLens) return;
     activeLens.classList.remove('is-visible'); activeLens = null;
     document.body.classList.remove('lens-mode');
     holdRail(350); syncRail();
   }
+  function setHoveredCard(card) {
+    if (hoveredCard === card) return;
+    hoveredCard?.classList.remove('is-hovered');
+    hoveredCard = card;
+    hoveredCard?.classList.add('is-hovered');
+    if (hoveredCard) railTween = null;
+    holdRail(350); syncRail();
+  }
+  const clearGalleryHover = () => { hideLens(); setHoveredCard(null); };
+  const trackGalleryHover = event => {
+    const card = event.target.closest('.work');
+    setHoveredCard(event.pointerType !== 'touch' && !railDrag && !modalIsOpen() && rail?.contains(card) ? card : null);
+  };
   const moveLens = event => {
     const card = event.target.closest('.work');
     if (!lensEnabled || event.pointerType === 'touch' || railDrag || modalIsOpen() || !card || !rail?.contains(card)) {
@@ -164,15 +179,18 @@
     const zoom = 2.7, radius = lens.offsetWidth / 2;
     const scale = Math.max(box.width / image.naturalWidth, box.height / image.naturalHeight);
     const width = image.naturalWidth * scale, height = image.naturalHeight * scale;
-    const centerX = Math.max(radius, Math.min(box.width - radius, x));
-    const centerY = Math.max(radius, Math.min(box.height - radius, y));
+    const centerX = Math.max(radius + 3, Math.min(cardBox.width - radius - 3, event.clientX - cardBox.left));
+    const centerY = Math.max(radius + 3, Math.min(cardBox.height - radius - 3, event.clientY - cardBox.top));
     Object.assign(lens.style, {
-      left: `${box.left - cardBox.left + centerX - radius}px`,
-      top: `${box.top - cardBox.top + centerY - radius}px`,
+      left: `${centerX - radius}px`,
+      top: `${centerY - radius}px`,
       backgroundImage: `url(${JSON.stringify(image.currentSrc || image.src)})`,
       backgroundSize: `${width * zoom}px ${height * zoom}px`,
       backgroundPosition: `${radius - (x + (width - box.width) / 2) * zoom}px ${radius - (y + (height - box.height) / 2) * zoom}px`
     });
+    // Resample during the image's hover zoom, even when the pointer stays still.
+    lensPoint = { target: card, pointerType: event.pointerType, clientX: event.clientX, clientY: event.clientY };
+    if (!lensFrame) lensFrame = requestAnimationFrame(() => { lensFrame = 0; if (lensPoint) moveLens(lensPoint); });
   };
   lensToggle?.addEventListener('click', () => {
     lensEnabled = !lensEnabled;
@@ -204,7 +222,7 @@
     rail.addEventListener('dragstart', event => event.preventDefault());
     rail.addEventListener('pointerdown', event => {
       if (railDrag || event.button !== 0 || originalCards.length < 2) return;
-      hideLens();
+      clearGalleryHover();
       railTween = null; holdRail();
       railDrag = { id: event.pointerId, startX: event.clientX, lastX: event.clientX, moved: false };
       const capture = event.target.closest('.work') || rail;
@@ -221,10 +239,11 @@
       }
       railDrag.lastX = event.clientX;
     });
-    rail.addEventListener('pointermove', moveLens);
-    rail.addEventListener('pointerleave', hideLens);
-    window.addEventListener('scroll', hideLens, { passive: true });
-    window.addEventListener('blur', hideLens);
+    rail.addEventListener('pointerover', trackGalleryHover);
+    rail.addEventListener('pointermove', event => { trackGalleryHover(event); moveLens(event); });
+    rail.addEventListener('pointerleave', clearGalleryHover);
+    window.addEventListener('scroll', clearGalleryHover, { passive: true });
+    window.addEventListener('blur', clearGalleryHover);
     const endDrag = event => {
       if (!railDrag || event.pointerId !== railDrag.id) return;
       const previous = railDrag;
@@ -232,6 +251,10 @@
       if (previous.moved || event.type === 'pointercancel') ignoreRailClickUntil = performance.now() + 300;
       if (previous.capture.hasPointerCapture?.(previous.id)) previous.capture.releasePointerCapture(previous.id);
       rail.classList.remove('dragging'); holdRail(); syncRail();
+      if (event.type === 'pointerup' && event.pointerType !== 'touch') {
+        const card = document.elementFromPoint(event.clientX, event.clientY)?.closest('.work');
+        if (card && rail.contains(card)) setHoveredCard(card);
+      }
     };
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(name => rail.addEventListener(name, endDrag));
     window.addEventListener('pointerup', endDrag);
@@ -304,7 +327,7 @@
   }
 
   const setBackgroundInert = () => {
-    inertSnapshot = [...document.querySelectorAll('body > main,body > nav,body > footer')].filter(element => !element.contains(modal)).map(element => ({ element, attribute: element.getAttribute('inert') }));
+    inertSnapshot = [...document.querySelectorAll('body > main,body > nav,body > header,body > footer')].filter(element => !element.contains(modal)).map(element => ({ element, attribute: element.getAttribute('inert') }));
     inertSnapshot.forEach(({ element }) => element.setAttribute('inert', ''));
   };
   const restoreBackgroundInert = () => {
@@ -342,7 +365,7 @@
   };
   const openModal = (index, trigger) => {
     if (!modalReady || !works[index]) return;
-    hideLens();
+    clearGalleryHover();
     if (!modalIsOpen()) {
       const candidate = trigger || document.activeElement;
       returnFocus = candidate?.closest('[aria-hidden="true"]') ? works[index].element : candidate;
@@ -402,10 +425,37 @@
       if (modalIsOpen() && !modal.contains(event.target)) (modalClose || modalInner).focus({ preventScroll: true });
     });
   }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) hideLens(); syncRail(); syncScroll(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) clearGalleryHover(); syncRail(); syncScroll(); });
   reduced.addEventListener('change', () => {
     if (reduced.matches) { railPaused = true; scrollPaused = true; railTween = null; }
     syncRail(); syncScroll();
   });
+  // A single marker follows the chapter nearest the upper third of the viewport.
+  const chapterNav = $('.chapter-nav');
+  const chapterLinks = chapterNav ? [...chapterNav.querySelectorAll('a[href^="#"]')] : [];
+  const chapters = chapterLinks.map(link => ({ link, section: $(link.getAttribute('href')) })).filter(item => item.section);
+  let chapterFrame = 0;
+  const updateChapterNav = () => {
+    chapterFrame = 0;
+    if (!chapters.length || modalIsOpen()) return;
+    let current = chapters[0];
+    for (const chapter of chapters) {
+      if (chapter.section.getBoundingClientRect().top <= window.innerHeight * .36) current = chapter;
+    }
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8) current = chapters[chapters.length - 1];
+    chapters.forEach(({ link }) => {
+      if (link === current.link) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    chapterNav.style.setProperty('--chapter-indicator-y', `${current.link.offsetTop + current.link.offsetHeight / 2 - 1}px`);
+  };
+  const queueChapterNav = () => { if (!chapterFrame) chapterFrame = requestAnimationFrame(updateChapterNav); };
+  if (chapterNav) {
+    window.addEventListener('scroll', queueChapterNav, { passive: true });
+    window.addEventListener('resize', queueChapterNav);
+    window.addEventListener('hashchange', queueChapterNav);
+    new ResizeObserver(queueChapterNav).observe(document.querySelector('main'));
+    updateChapterNav();
+  }
   updateRailControls(); syncScroll();
 })();

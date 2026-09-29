@@ -437,14 +437,25 @@
   <link rel="stylesheet" href="assets/site-refinements.css?v=20260928-2">
   <script src="assets/site-refinements.js?v=20260928-1" defer></script>
   <script src="assets/gold-cursor.js?v=20260928-2" defer></script>
-  <link rel="stylesheet" href="assets/desktop-refinements.css?v=20260929-lens-glyph-1">
-  <script src="assets/desktop-interactions.js?v=20260929-lens-1" defer></script>
+  <link rel="stylesheet" href="assets/desktop-refinements.css?v=20260929-side-nav-1">
+  <script src="assets/desktop-interactions.js?v=20260929-side-nav-1" defer></script>
 </head>
-<body data-site-revision="20260929-desktop-lens-glyph-1">
+<body data-site-revision="20260929-desktop-side-nav-1">
   <canvas class="dark-veil" id="dark-veil" aria-hidden="true"></canvas>
   <div class="cursor"></div>
   <svg class="gold-trail" id="gold-trail" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"></svg>
-  <nav class="nav"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a><div class="links"><a href="#motion">动态序章</a><a href="#silk">蜀绣花园</a><a href="#lingjing">灵境同游</a><a href="#atelier">金线拾光</a><a href="#myth">山海异兽</a><a href="#summary">创作手记</a><a href="./mobile/">手机版 ↗</a></div></nav>
+  <header class="site-signature"><a class="brand" href="#top">王淳 <small>WANG CHUN</small></a></header>
+  <nav class="chapter-nav" aria-label="章节导航">
+    <i class="chapter-nav-active" aria-hidden="true"></i>
+    <a href="#motion" aria-label="动态序章"><span class="chapter-nav-label">动态序章</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#silk" aria-label="蜀绣灵境"><span class="chapter-nav-label">蜀绣灵境</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#lingjing" aria-label="灵境同游"><span class="chapter-nav-label">灵境同游</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#atelier" aria-label="金线拾光"><span class="chapter-nav-label">金线拾光</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#wanxiang" aria-label="万象归绣"><span class="chapter-nav-label">万象归绣</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#myth" aria-label="山海异兽"><span class="chapter-nav-label">山海异兽</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#journey" aria-label="视觉路线"><span class="chapter-nav-label">视觉路线</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+    <a href="#summary" aria-label="创作手记"><span class="chapter-nav-label">创作手记</span><i class="chapter-nav-tick" aria-hidden="true"></i></a>
+  </nav>
   <main id="top">
     <section class="hero" id="motion"><video class="hero-video" id="garden-video" muted autoplay loop playsinline poster="assets/generated/02-peony-garden-video-poster.png"><source src="assets/video/embroidered-garden.mp4" type="video/mp4"></video><div class="hero-title"><span class="kicker">WANG CHUN · SHU EMBROIDERY VISUAL STORY</span><h1><span>蜀绣·灵境</span><br><span><em>万象</em>生花</span></h1><div class="hero-foot"><p>以刺绣的温度、神话的轮廓与动画的呼吸，编织一组关于自然与文化的视觉叙事。</p><a class="text-link hero-enter" href="#silk">走入绣境 <span aria-hidden="true">↓</span></a></div></div><button class="hero-sound" id="sound" aria-label="开启首屏视频声音">开启影片声音</button></section>
     <section id="silk" class="reveal"><div class="chapter"><div><h2>蜀绣灵境<br>瑞兽花园</h2></div><div><p>一针藏山色，一线引春来。熊猫卧于繁花，金丝猴栖于竹影，细密的针脚把四时的温柔，织成一座可以慢慢走入的花园。</p><div class="line"><span>金丝猴</span><span>熊猫</span><span>丝线肌理</span></div></div></div><div class="gallery"><div class="rail" id="silk-rail">
@@ -469,7 +480,7 @@
       <article class="atelier-work" data-title="金线拾光 · 光阴有痕" data-type="绣线研究 / 光与肌理" data-desc="以金线的起伏记录光的游走。细密针脚与深绿绣面的明暗变化，让传统纹样有了可以被触想的厚度。"><img src="assets/generated/06-golden-thread-opening.png" alt="金线在深绿绣面上展开的针脚与光泽" loading="lazy" decoding="async"><div class="atelier-caption"><h3>一针一线，光阴有痕</h3><span>查看作品 ↗</span></div></article>
       <article class="atelier-work" data-title="花间纹样 · 万物成章" data-type="纹样研究 / 东方花鸟" data-desc="从花鸟与云水中采撷纹样，让自然的形态回到线条。独立的小景也可以组合成一卷新的东方故事。"><img src="assets/generated/05-embroidered-ornament-sheet.png" alt="花鸟与云纹组成的东方刺绣纹样" loading="lazy" decoding="async"><div class="atelier-caption"><h3>花间纹样，万物成章</h3><span>查看作品 ↗</span></div></article>
     </div></section>
-    <section class="closing reveal"><div class="closing-art"><img src="assets/generated/04-wanxiang-closing.png" alt="万象归绣东方生灵"><div class="closing-copy"><h2>万象归绣<br>东方生灵</h2><p>从灵境花园到幽林异兽，每一位生灵都由同一根金线牵引，回到东方叙事的温度之中。</p><a class="text-link" href="#silk">返回绣境花园 →</a></div></div></section>
+    <section class="closing reveal" id="wanxiang"><div class="closing-art"><img src="assets/generated/04-wanxiang-closing.png" alt="万象归绣东方生灵"><div class="closing-copy"><h2>万象归绣<br>东方生灵</h2><p>从灵境花园到幽林异兽，每一位生灵都由同一根金线牵引，回到东方叙事的温度之中。</p><a class="text-link" href="#silk">返回绣境花园 →</a></div></div></section>
     <section class="gate reveal" aria-label="山海启卷"><div class="gate-art"><img src="assets/generated/03-shanhai-scroll-transition.png" alt="山海启卷刺绣转场"></div></section>
     <section class="myth reveal" id="myth"><div class="chapter"><div><h2>山海经<br>异兽小志</h2></div><div><p>循着九尾狐的足迹，走进青绿幽林。白泽听风，麒麟衔芳，朱雀栖云，玄武守月；古老传说里的生灵，在柔和的笔触间相逢。</p><div class="line"><span>神兽人物志</span><span>青绿幽林</span><span>神话新绘</span></div></div></div><div class="myth-grid">
       <article class="myth-card" data-title="白泽神兽志" data-type="山海经 / 神兽角色设计" data-desc="横构图以幽林和萤光为场景，把白泽的智慧、守护与自然感收拢到一个有呼吸的神话瞬间。"><img src="assets/myth/baize-landscape.png" alt="白泽神兽横构图"><div class="work-info"><span class="type">BAIZE · FOREST GUARDIAN</span><h3>白泽神兽志</h3></div></article>
@@ -490,7 +501,7 @@
       </div>
     </section>
     <section class="summary reveal" id="summary"><div><h2>山河入绣<br>岁月生香</h2><a class="text-link" href="#motion">返回首页 ↑</a></div><div class="note-copy"><p>让山川的颜色，<br>在针脚里慢慢生长。</p><p>把花木的四时，生灵的回望，<br>和古老故事里未散的微光，<br>一同留在这卷绣境里。</p><p>愿每一次凝望，<br>都遇见东方的温柔。</p><div class="artist-signature" aria-label="王淳签名"><span>王淳</span><small>于绣境深处，留一缕光</small></div></div></section>
-  </main><footer><span>© 2026 WANG CHUN. ALL RIGHTS RESERVED.</span><span>EMBROIDERED WORLDS · MYTHICAL CREATURES</span></footer>
+  </main><footer><span>© 2026 WANG CHUN. ALL RIGHTS RESERVED.</span><span>EMBROIDERED WORLDS · MYTHICAL CREATURES</span><a href="./mobile/">手机版 ↗</a></footer>
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"><div class="modal-inner"><button class="close" type="button" aria-label="关闭作品预览">×</button><div class="modal-stage"><img id="modal-img" alt=""></div><div class="modal-details"><span class="type" id="modal-type"></span><h2 id="modal-title"></h2><p id="modal-description"></p><div class="modal-navigation"><button type="button" id="modal-prev" aria-label="上一件作品">←</button><span id="modal-count" aria-live="polite"></span><button type="button" id="modal-next" aria-label="下一件作品">→</button></div><small>左右方向键切换 · Esc 返回</small></div></div></div>
   <script>
     (()=>{const canvas=document.querySelector('#dark-veil'),gl=canvas.getContext('webgl',{alpha:false,antialias:false,powerPreference:'low-power'});if(!gl)return;const vertex='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}',fragment='precision mediump float;uniform vec2 r;uniform float t;float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.)),f.x),f.y);}float fbm(vec2 p){float v=0.;for(int i=0;i<4;i++){v+=n(p)*.5;p=p*2.03+7.2;}return v;}void main(){vec2 uv=gl_FragCoord.xy/r.xy;vec2 p=uv*2.-1.;p.x*=r.x/r.y;p+=.09*vec2(sin(p.y*6.28+t*.22),cos(p.x*6.28+t*.18));float f=fbm(p*1.45+t*.045);float scan=.5+.5*sin(gl_FragCoord.y*2.5);vec3 deep=vec3(.012,.07,.052),jade=vec3(.035,.22,.16),teal=vec3(.06,.34,.25),gold=vec3(.33,.22,.08);vec3 col=mix(deep,jade,smoothstep(.16,.74,f));col=mix(col,teal,smoothstep(.56,.95,fbm(p*2.2-t*.03))*.42);col+=gold*pow(max(0.,sin(p.x*2.2+p.y*1.4+t*.09)),10.)*.13;col*=1.-scan*.045;gl_FragColor=vec4(col,1.);}';const make=(type,source)=>{const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s};let program;try{program=gl.createProgram();gl.attachShader(program,make(gl.VERTEX_SHADER,vertex));gl.attachShader(program,make(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(error){console.warn('DarkVeil unavailable',error);return}gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);const resolution=gl.getUniformLocation(program,'r'),time=gl.getUniformLocation(program,'t');const draw=now=>{const scale=Math.min(devicePixelRatio||1,1.35),w=Math.round(innerWidth*scale),h=Math.round(innerHeight*scale);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(resolution,w,h);gl.uniform1f(time,now*.001);gl.drawArrays(gl.TRIANGLES,0,3);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(draw)};requestAnimationFrame(draw)})();
