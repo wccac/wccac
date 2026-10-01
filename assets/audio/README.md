@@ -1,13 +1,19 @@
-# 绣境听风
+# Website background music
 
-为王淳「蜀绣 · 灵境」作品网站创作的原创合成器乐。
+## Current: Taohua — PeriTune
 
-- 时长：2 分 03.871 秒，32 小节，62 BPM。
-- 五声音阶，以温和的拨弦和箫声质感编配，无人声、无鼓点。
-- 旋律和音色由程序原创编写；未使用第三方歌曲、录音或采样。
-- 环形混音保留首尾余音，供网站持续循环。
-- 文件：`xiujing-listening.m4a`，44.1 kHz 立体声 AAC，约 2.2 MB。
-- 这是合成器乐，并非真人古琴、古筝或箫的演奏录音。
+- Composer / copyright holder: PeriTune (Sei Mutsuki / むつき醒).
+- Published: March 3, 2021.
+- Source: https://peritune.com/blog/2021/03/03/taohua/
+- Official loop download: https://peritune.com/loop/PerituneMaterial_Taohua_loop.zip
+- Local file: `taohua-peritune-loop.m4a`, copied byte-for-byte from the official archive's `PerituneMaterial_Taohua_loop.m4a`.
+- License: Creative Commons Attribution 4.0 International (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+- License verified October 2, 2026 at https://peritune.com/about/ : works published before March 2026 retain CC BY 4.0.
+- Changes: no edits to the audio file. The player lowers playback volume, fades in when starting, and repeats the author's loop indefinitely.
+- Website footer provides track, creator, source, and license attribution.
 
-打开网页时尝试播放；如果浏览器限制有声自动播放，在首次点击或按 Enter / 空格时启动。
-右下角按钮可暂停 / 继续，作品预览内也提供同一开关。访客主动暂停后记住选择。
+On entry, playback is attempted. If the browser blocks audible autoplay, the first click or Enter / Space starts the track. The visible toggle and artwork dialog toggle both pause / resume the same audio. A visitor's explicit pause preference is remembered.
+
+## Archived original: 绣境听风
+
+`xiujing-listening.m4a` is the previous original synthesized soundtrack, replaced on October 2, 2026. It is retained only as an archived asset and is not loaded by the current site. It uses original programmed melody and synthesized timbres, without third-party recordings or samples.

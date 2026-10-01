@@ -1,4 +1,4 @@
-/* Original, self-hosted ambient music. Browser autoplay rules are respected. */
+/* Taohua by PeriTune (CC BY 4.0), official loop. Browser autoplay rules are respected. */
 (() => {
   'use strict';
   const audio = document.querySelector('#site-music');
@@ -6,7 +6,7 @@
   if (!audio || !controls.length) return;
 
   const preferenceKey = 'xiujing-music';
-  const level = .6;
+  const level = .28;
   let wanted = true, starting = false, needsGesture = false;
   let request = 0, fadeFrame = 0;
   try { wanted = localStorage.getItem(preferenceKey) !== 'off'; } catch (_) { /* Storage is optional. */ }
@@ -21,8 +21,8 @@
     controls.forEach(button => {
       button.dataset.state = state;
       button.setAttribute('aria-pressed', String(state === 'playing'));
-      button.setAttribute('aria-label', `${state === 'playing' || state === 'loading' ? '暂停' : '播放'}背景音乐：绣境听风`);
-      button.title = state === 'blocked' ? '轻触页面，即可聆听循环国风配乐' : '原创国风轻音乐 · 绣境听风';
+      button.setAttribute('aria-label', `${state === 'playing' || state === 'loading' ? '暂停' : '播放'}背景音乐：Taohua — PeriTune`);
+      button.title = state === 'blocked' ? '轻触页面，即可聆听 Taohua — PeriTune' : 'Taohua — PeriTune · 循环播放';
       button.querySelector('[data-music-status]').textContent = labels[state];
     });
   }
